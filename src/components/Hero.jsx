@@ -1,20 +1,19 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, useMotionValue, animate, AnimatePresence } from 'framer-motion';
-import { Plus, Minus, Move } from 'lucide-react';
+import { Move } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import { useNavigate }
-from 'react-router-dom';
-import { supabase } from '@/lib/customSupabaseClient';
+  from 'react-router-dom';
 
 // Custom Hexagon Info Icon
 const HexagonInfoIcon = ({ className }) => (
-  <svg 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    stroke="currentColor" 
-    strokeWidth="2" 
-    strokeLinecap="round" 
-    strokeLinejoin="round" 
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
     className={className}
   >
     {/* Pointy-topped hexagon path */}
@@ -31,13 +30,10 @@ const Hero = () => {
   const containerRef = useRef(null);
   const aboutButtonRef = useRef(null);
 
-  // Motion Values for direct control (smoother, no spring lag)
-  const scale = useMotionValue(1.25);
+  // Motion Values for panning
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  // State to toggle drag vs zoom behavior
-  const [isZooming, setIsZooming] = useState(false);
   // State for the custom "View Reset" message visibility
   const [showResetMessage, setShowResetMessage] = useState(false);
 
@@ -45,20 +41,11 @@ const Hero = () => {
   const [isExpandingAbout, setIsExpandingAbout] = useState(false);
   const [aboutButtonRect, setAboutButtonRect] = useState(null);
 
-  // Refs for pinch-to-zoom logic
-  const lastTouch = useRef({
-    dist: 0,
-    center: { x: 0, y: 0 }
-  });
-
   // Ref for double-tap detection on touch devices
   const lastTap = useRef(0);
 
   // Ref for distinguishing single click vs double click on items
   const clickTimeout = useRef(null);
-
-  // State for project images
-  const [projectImages, setProjectImages] = useState({});
 
   // Cleanup timeout on unmount
   useEffect(() => {
@@ -73,120 +60,150 @@ const Hero = () => {
   const [items, setItems] = useState([
     {
       id: 1,
-      name: "Albed Price list",
-      bucketFolder: "Albed-Price-list",
-      x: '25%',
-      y: '21%',
-      size: 'w-64 md:w-80',
-      rotation: 15
-    }, 
+      name: "Muso",
+      description: 'Brand, Strategy, Web & Product Design',
+      image:'/muso.jpg',
+      bucketFolder: "Muso",
+      x: '-7%',
+      y: '10%',
+      width: '270px',
+      size: 'w-30',
+      height: '270px',
+      rotation: -30
+    },
     {
       id: 2,
-      name: "Muso",
-      bucketFolder: "Muso",
-      x: '54%',
-      y: '32%',
-      size: 'w-40 md:w-52',
-      rotation: -10
-    }, 
+      name: "ApCollective",
+      description: 'Portfolio',
+      image:'/apcollective.png',
+      bucketFolder: "ApCollective",
+      x: '25%',
+      y: '10%',
+      rotation: -15,
+      width: '150px',
+      height: '188px'
+    },
     {
       id: 3,
       name: "Abaco",
+      description: 'Product Design',
+      image:'/abaco.jpg',
       bucketFolder: "Abaco",
-      x: '68%',
-      y: '23%',
-      size: 'w-72 md:w-96',
-      rotation: 45
-    }, 
+      x: '50%',
+      y: '10%',
+      rotation: 30,
+      width: '160px',
+      height: '160px'
+    },
     {
-      id: 4,
-      name: "The Social Fablab",
-      bucketFolder: "The-Social-Fablab",
-      x: '40%',
-      y: '54%',
-      size: 'w-32 md:w-36',
-      rotation: -45
-    }, 
-    {
-      id: 5,
-      name: "Diversa",
-      bucketFolder: "Diversa",
-      x: '53%',
-      y: '53%',
-      size: 'w-64 md:w-80',
-      rotation: 5,
-      aspectRatio: 'aspect-video'
-    }, 
-    {
-      id: 6,
-      name: "Culto della Luce",
-      bucketFolder: "Culto-della-Luce",
-      x: '68%',
-      y: '68%',
-      size: 'w-48 md:w-60',
-      rotation: 30
-    }, 
-    {
-      id: 7,
-      name: "Empathy Design",
-      bucketFolder: "Empathy-Design",
-      x: '28%', 
-      y: '63%', 
-      size: 'w-52 md:w-64',
-      rotation: -15
-    }, 
-    {
-      id: 8,
-      name: "ApCollective",
-      bucketFolder: "ApCollective",
-      x: '42%',
-      y: '38%',
-      size: 'w-28 md:w-32',
+      id: 2,
+      name: "Albed Price Book",
+      description: 'Strategy & Editorial Design',
+      image:'/albed.jpg',
+      bucketFolder: "Muso",
+      x: '75%',
+      y: '10%',
+      width: '270px',
+      height: '270px',
       rotation: 30
     },
     {
-      id: 9,
-      name: "Grillwise",
-      bucketFolder: "Grillwise",
-      x: '13%', 
-      y: '53%',
-      size: 'w-64 md:w-80',
-      rotation: -12
+      id: 7,
+      name: "Empathy Design",
+      description: 'Logo & Set Design',
+      image:'/checked.png',
+      bucketFolder: "Empathy-Design",
+      x: '-10%',
+      y: '50%',
+      rotation: -30,
+      width: '160px',
+      height: '160px'
     },
     {
       id: 10,
       name: "Syform",
+      description: 'Set & Graphic Design',
+      image:'/checked.png',
       bucketFolder: "Syform",
-      x: '77%',
-      y: '52%',
-      size: 'w-52 md:w-64',
-      rotation: 8
-    }
-  ]);
+      x: '5%',
+      y: '65%',
+      width: '160px',
+      height: '160px',
+      rotation: -30
+    },
+    
+    {
+      id: 9,
+      name: "Grillwise",
+      description: 'Brand & Web Design',
+      image:'grillwise.jpg',
+      bucketFolder: "Grillwise",
+      x: '75%',
+      y: '40%',
+      width:'288px',
+      height:'160px',
+      rotation: 30
+    },
+    {
+      id: 4,
+      name: "The Social Fablab",
+      description: 'Speculative & Brand Design',
+      image:'/fablab.jpg',
+      bucketFolder: "The-Social-Fablab",
+      x: '55%',
+      y: '68%',
+      rotation: 30,
+      width: '178px',
+      height:'96px'
+    },
+    {
+      id: 5,
+      name: "Diversa",
+      description: 'Strategy & Brand Design',
+      image:'/checked.png',
+      bucketFolder: "Diversa",
+      x: '75%',
+      y: '65%',
+      size: 'w-64 md:w-80',
+      rotation: 5,
+      aspectRatio: 'aspect-video'
+    },
+    {
+      id: 6,
+      name: "Upcoming",
+      bucketFolder: "Culto-della-Luce",
+      image:'/checked.png',
+      x: '25%',
+      y: '68%',
+      size: 'w-48 md:w-60',
+      rotation: 30
+    },
+    {
+      id: 11,
+      x: '25%',
+      y: '49%',
+      image:'/home.jpg',
+      size: 'w-48 md:w-60',
+      width:'96px',
+      height:'96px',
+      rotation: -30
+    },
+    {
+      id: 12,
+      name:'????',
+      x: '105%',
+      image:'checked.png',
+      y: '45%',
+      size: 'w-48 md:w-60',
+      width:'96px',
+      height:'96px',
+      rotation: 30
+    },
 
-  // Fetch project images from Supabase
-  useEffect(() => {
-    const fetchImages = async () => {
-      const images = {};
-      for (const item of items) {
-        try {
-          const { data, error } = await supabase.storage.from('product-images').list(item.bucketFolder);
-          if (error) {
-            console.error('Error fetching images for', item.bucketFolder, error);
-            continue;
-          }
-          const imageUrls = data
-            .filter(file => file.name.match(/\.(jpg|jpeg|png|gif|webp)$/i)) // Only image files
-            .map(file => supabase.storage.from('product-images').getPublicUrl(`${item.bucketFolder}/${file.name}`).data.publicUrl);
-          images[item.id] = imageUrls;
-        } catch (err) {
-          console.error('Error fetching images for', item.bucketFolder, err);
-        }
-      }
-      setProjectImages(images);
-    };
-    fetchImages();
-  }, [items]);
+
+    
+
+  ]);
 
   // Handle About Button Click (Expansion Animation)
   const handleAboutClick = () => {
@@ -199,7 +216,7 @@ const Hero = () => {
         height: rect.height
       });
       setIsExpandingAbout(true);
-      
+
       // Navigate after animation
       setTimeout(() => {
         navigate('/about');
@@ -211,10 +228,6 @@ const Hero = () => {
 
   // Reset View Logic (Double Click)
   const handleResetView = () => {
-    animate(scale, 1.25, {
-      duration: 0.5,
-      ease: "easeInOut"
-    });
     animate(x, 0, {
       duration: 0.5,
       ease: "easeInOut"
@@ -223,34 +236,12 @@ const Hero = () => {
       duration: 0.5,
       ease: "easeInOut"
     });
-    
+
     // Show the custom centered "View Reset" message
     setShowResetMessage(true);
     setTimeout(() => {
       setShowResetMessage(false);
     }, 1500); // Message disappears after 1.5 seconds
-  };
-
-  // Button Zoom (Still animated for smoothness)
-  const handleButtonZoom = direction => {
-    const currentScale = scale.get();
-    const step = 0.4; // Larger step for buttons
-    const targetScale = direction === 'in' ? currentScale + step : currentScale - step;
-    const clampedScale = Math.min(Math.max(targetScale, 0.5), 4.0);
-
-    // Zoom to center (0,0 relative pointer)
-    const ratio = clampedScale / currentScale;
-
-    // Animate scale, x, and y
-    animate(scale, clampedScale, {
-      duration: 0.3
-    });
-    animate(x, x.get() * ratio, {
-      duration: 0.3
-    });
-    animate(y, y.get() * ratio, {
-      duration: 0.3
-    });
   };
   const showToast = feature => {
     toast({
@@ -259,123 +250,51 @@ const Hero = () => {
     });
   };
 
-  // Mouse Wheel Zoom Logic (Zoom to Cursor)
+  // Mouse Wheel Scroll Logic (Horizontal and Vertical)
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
     const onWheel = e => {
       e.preventDefault();
-      const currentScale = scale.get();
-      // Increased sensitivity X2 from previous (0.0013 -> 0.0026)
-      const delta = -e.deltaY * 0.0026;
-      const newScale = Math.min(Math.max(currentScale + delta, 0.5), 4.0);
-      const ratio = newScale / currentScale;
 
-      // Calculate mouse position relative to viewport center
-      // Since container covers window, window center is our origin
-      const rect = container.getBoundingClientRect();
-      const centerX = window.innerWidth / 2;
-      const centerY = window.innerHeight / 2;
-      const pointerX = e.clientX - centerX;
-      const pointerY = e.clientY - centerY;
-
-      // Calculate new position to keep pointer stationary relative to content
-      // T_new = P - (P - T_old) * ratio
       const currentX = x.get();
       const currentY = y.get();
-      const newX = pointerX - (pointerX - currentX) * ratio;
-      const newY = pointerY - (pointerY - currentY) * ratio;
 
-      // Direct update for instant response (no spring lag)
-      scale.set(newScale);
-      x.set(newX);
-      y.set(newY);
+      // Scroll sensitivity
+      const scrollSpeed = 1.5;
+
+      // Support both vertical and horizontal scrolling
+      // Shift + wheel for horizontal, normal wheel for vertical
+      if (e.shiftKey) {
+        // Horizontal scroll when holding shift
+        const newX = currentX - e.deltaY * scrollSpeed;
+        x.set(newX);
+      } else {
+        // Vertical scroll (primary)
+        const newY = currentY - e.deltaY * scrollSpeed;
+        // Also support horizontal scroll with deltaX (for trackpads)
+        const newX = currentX - e.deltaX * scrollSpeed;
+        y.set(newY);
+        if (e.deltaX !== 0) {
+          x.set(newX);
+        }
+      }
     };
     container.addEventListener('wheel', onWheel, {
       passive: false
     });
     return () => container.removeEventListener('wheel', onWheel);
-  }, [scale, x, y]);
+  }, [x, y]);
 
-  // Touch Logic (Pinch to Zoom + Pan)
+  // Touch Logic (Double tap to reset)
   const handleTouchStart = e => {
-    if (e.touches.length === 2) {
-      setIsZooming(true); // Disable drag
-
-      const touch1 = e.touches[0];
-      const touch2 = e.touches[1];
-      const dist = Math.hypot(touch1.clientX - touch2.clientX, touch1.clientY - touch2.clientY);
-      const centerX = (touch1.clientX + touch2.clientX) / 2;
-      const centerY = (touch1.clientY + touch2.clientY) / 2;
-      lastTouch.current = {
-        dist,
-        center: {
-          x: centerX,
-          y: centerY
-        }
-      };
-    } else if (e.touches.length === 1) {
+    if (e.touches.length === 1) {
       // Double tap detection
       const now = Date.now();
       if (now - lastTap.current < 300) {
         handleResetView();
       }
       lastTap.current = now;
-    }
-  };
-  const handleTouchMove = e => {
-    if (e.touches.length === 2) {
-      e.preventDefault(); // Stop browser zoom
-
-      const touch1 = e.touches[0];
-      const touch2 = e.touches[1];
-      const dist = Math.hypot(touch1.clientX - touch2.clientX, touch1.clientY - touch2.clientY);
-      const centerX = (touch1.clientX + touch2.clientX) / 2;
-      const centerY = (touch1.clientY + touch2.clientY) / 2;
-      if (lastTouch.current.dist > 0) {
-        const currentScale = scale.get();
-        const currentX = x.get();
-        const currentY = y.get();
-
-        // Calculate zoom ratio
-        const rawRatio = dist / lastTouch.current.dist;
-
-        // Amplify zoom speed (Sensitivity X2)
-        // effectiveRatio = 1 + (change * multiplier)
-        const speedFactor = 2.6; // Increased speed
-        const effectiveRatio = 1 + (rawRatio - 1) * speedFactor;
-        const newScale = Math.min(Math.max(currentScale * effectiveRatio, 0.5), 4.0);
-        const ratio = newScale / currentScale;
-
-        // Zoom centered on the pinch midpoint
-        const windowCenterX = window.innerWidth / 2;
-        const windowCenterY = window.innerHeight / 2;
-        const pointerX = centerX - windowCenterX;
-        const pointerY = centerY - windowCenterY;
-
-        // Apply Zoom Translation
-        let newX = pointerX - (pointerX - currentX) * ratio;
-        let newY = pointerY - (pointerY - currentY) * ratio;
-
-        // Apply Pan Translation (following the pinch center movement)
-        newX += centerX - lastTouch.current.center.x;
-        newY += centerY - lastTouch.current.center.y;
-        scale.set(newScale);
-        x.set(newX);
-        y.set(newY);
-      }
-      lastTouch.current = {
-        dist,
-        center: {
-          x: centerX,
-          y: centerY
-        }
-      };
-    }
-  };
-  const handleTouchEnd = e => {
-    if (e.touches.length < 2) {
-      setIsZooming(false); // Re-enable drag
     }
   };
 
@@ -400,7 +319,7 @@ const Hero = () => {
   };
 
   return (
-    <motion.section 
+    <motion.section
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       // Prevent fade out if we are expanding into the About page to avoid white flash
@@ -440,98 +359,115 @@ const Hero = () => {
         <div className="pointer-events-auto cursor-pointer">
           <img src="https://horizons-cdn.hostinger.com/38ec5550-5152-446c-bb9a-73388eb1666a/193d5ef86fe7049670fde3909cd2cc58.png" alt="Orodavid Logo" className="h-8 md:h-10 w-auto object-contain" />
         </div>
+
+        {/* Drag to explore hint */}
+        <div className="flex items-center gap-2 text-[#888] select-none pointer-events-auto">
+          <Move className="w-4 h-4" />
+          <span className="text-sm font-light tracking-wide">Drag or scroll to explore</span>
+        </div>
       </div>
 
       {/* Draggable Canvas Area */}
-      <motion.div 
-        ref={containerRef} 
-        className="w-full h-full cursor-grab active:cursor-grabbing touch-none" 
-        style={{ touchAction: 'none' }} 
-        onTouchStart={handleTouchStart} 
-        onTouchMove={handleTouchMove} 
-        onTouchEnd={handleTouchEnd} 
+      <motion.div
+        ref={containerRef}
+        className="w-full h-full cursor-grab active:cursor-grabbing touch-none flex items-center justify-center"
+        style={{ touchAction: 'none' }}
+        onTouchStart={handleTouchStart}
         onDoubleClick={handleResetView}
       >
-        <motion.div 
-          drag={!isZooming} // Disable drag when pinching to avoid conflict
+        <motion.div
+          drag
           dragConstraints={{
-            left: -2500,
-            right: 2500,
-            top: -2000,
-            bottom: 2000
-          }} 
-          dragElastic={0.1} 
-          dragMomentum={true} 
+            left: -1120,
+            right: 1120,
+            top: -801.5,
+            bottom: 801.5
+          }}
+          dragElastic={0.1}
+          dragMomentum={true}
           style={{
-            scale,
+            width: '2240px',
+            height: '1603px',
             x,
             y
-          }} // Controlled via MotionValues
-          className="relative w-[200vw] h-[200vh] -ml-[50vw] -mt-[50vh] origin-center bg-[#FFFFFF]"
+          }}
+          className="relative bg-[#FFFFFF]"
         >
           {/* Grid pattern */}
-          <div 
-            className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+          <div
+            className="absolute inset-0 opacity-[0.03] pointer-events-none"
             style={{
               backgroundImage: 'radial-gradient(#1E1E1D 1px, transparent 1px)',
               backgroundSize: '40px 40px'
-            }} 
+            }}
           />
+
+          {/* Centered Text */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-start pointer-events-none max-w-2xl px-4">
+            <p className="text-black text-[16px] leading-relaxed font-bold">
+              Lorem ipsum dolor sit amet <br/>consectetur adipiscing elit Ut et <br/>massa mi. Aliquam in hendrerit <br/>urna. Pellentesque sit amet
+            </p>
+          </div>
 
           {items.map(item => {
             const isClickable = item.id !== 4;
             return (
-              <motion.div 
-                key={item.id} 
+              <motion.div
+                key={item.id}
                 drag={false} // Items are not individually draggable, canvas is
                 whileHover={isClickable ? {
                   scale: 1.05,
                   zIndex: 50,
                   rotate: item.rotation
                 } : {}}
-                onTap={() => handleProductClick(item)} 
-                initial={{ opacity: 0, scale: 0.8 }} 
-                animate={{ opacity: 1, scale: 1 }} 
-                transition={{ duration: 0.8 }} 
+                onTap={() => handleProductClick(item)}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8 }}
                 style={{
                   left: item.x,
                   top: item.y,
-                  rotate: item.rotation
-                }} 
-                className={`absolute ${item.size} ${isClickable ? 'cursor-pointer' : ''} group`}
+                  rotate: item.rotation,
+                  width: item.width || undefined,
+                  height: item.height || undefined
+                }}
+                className={`absolute ${!item.width ? item.size : ''} ${isClickable ? 'cursor-pointer' : ''} group`}
               >
-                <div className={`relative ${item.aspectRatio || 'aspect-square'} rounded-[24px] overflow-hidden bg-white shadow-lg transition-shadow duration-500 ${isClickable ? 'group-hover:shadow-2xl' : ''} flex items-center justify-center`}>
-                  
-                  {/* Dynamic Image from Supabase */}
-                  {projectImages[item.id] && projectImages[item.id][0] ? (
-                    <img src={projectImages[item.id][0]} alt={item.name} className="w-full h-full object-cover" />
+                <div
+                  className={`relative ${!item.width && !item.height ? (item.aspectRatio || 'aspect-square') : ''} rounded-[16px] overflow-hidden bg-white shadow-lg transition-shadow duration-500 ${isClickable ? 'group-hover:shadow-2xl' : ''} flex items-center justify-center`}
+                  style={{
+                    width: item.width ? '100%' : undefined,
+                    height: item.height ? '100%' : undefined
+                  }}
+                >
+
+                  {/* Custom image or fallback */}
+                  {item.image ? (
+                    <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
                   ) : (
-                    // Fallback images if no Supabase images
-                    <>
-                      {item.id === 1 && <img src="https://lqxywygswhflpdvndund.supabase.co/storage/v1/object/public/product-images/Abaco/download.jpeg" alt="Deep blue ceramic bowl" className="w-full h-full object-cover" />}
-                      {item.id === 2 && <img src="https://horizons-cdn.hostinger.com/38ec5550-5152-446c-bb9a-73388eb1666a/2024-05-02-NIYvw.webp" alt="Small espresso cup" className="w-full h-full object-cover" />}
-                      {item.id === 3 && <img src="https://images.unsplash.com/photo-1567763745030-bfe9c51bec27?q=80&w=1000&auto=format&fit=crop" alt="Dark glazed dinner plate" className="w-full h-full object-cover" />}
-                      {/* UPDATED: Removed grayscale effect from Minimalist Teacup (ID 4) */}
-                      {item.id === 4 && <img src="https://horizons-cdn.hostinger.com/38ec5550-5152-446c-bb9a-73388eb1666a/dd_homepage_hero-Yw657.jpg" alt="Minimalist teacup" className="w-full h-full object-cover" />}
-                      {item.id === 5 && <img src="https://horizons-cdn.hostinger.com/38ec5550-5152-446c-bb9a-73388eb1666a/70d3ecacf11e47cb3d7e2ba293cd4057.jpg" alt="Grillwise" className="w-full h-full object-cover" />}
-                      {item.id === 6 && <img src="https://images.unsplash.com/photo-1605206352486-133527a0df47?q=80&w=1000&auto=format&fit=crop" alt="Pink speckled bowl" className="w-full h-full object-cover" />}
-                      {item.id === 7 && <img src="https://images.unsplash.com/photo-1533037805260-25e89a1a0d47?q=80&w=1000&auto=format&fit=crop" alt="Rustic side plate" className="w-full h-full object-cover" />}
-                      {item.id === 8 && <img src="https://images.unsplash.com/photo-1622378875508-d2105da1c83a?q=80&w=1000&auto=format&fit=crop" alt="Sauce dish" className="w-full h-full object-cover" />}
-                      {item.id === 9 && <img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?q=80&w=1000&auto=format&fit=crop" alt="Ceramic Vase" className="w-full h-full object-cover" />}
-                      {item.id === 10 && <img src="https://images.unsplash.com/photo-1590409852230-b3c66f777e4b?q=80&w=1000&auto=format&fit=crop" alt="Serving Platter" className="w-full h-full object-cover" />}
-                      {item.id === 11 && <img src="https://images.unsplash.com/photo-1596541571550-201594e976db?q=80&w=1000&auto=format&fit=crop" alt="Table Set" className="w-full h-full object-cover" />}
-                    </>
+                    // Fallback placeholder if no image specified
+                    <div className="w-full h-full bg-gray-100 flex items-center justify-center text-gray-400">
+                      <span className="text-sm">No image</span>
+                    </div>
                   )}
 
                   {/* View Label - Only show for clickable items */}
                   {isClickable && (
-                    <motion.div 
-                      initial={{ opacity: 0, y: 10 }} 
-                      whileHover={{ opacity: 1, y: 0 }} 
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      whileHover={{ opacity: 1, y: 0 }}
                       className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[#1E1E1D] text-white px-4 py-2 shadow-lg rounded-[24px] whitespace-nowrap z-40 pointer-events-none"
                     >
                       <span className="text-xs font-medium tracking-wide">View Product</span>
                     </motion.div>
+                  )}
+                </div>
+                
+                {/* Name and Description below the image */}
+                <div className="mt-3 pointer-events-none">
+                  <h3 className="text-[14px] font-bold text-black">{item.name}</h3>
+                  {item.description && (
+                    <p className="text-[12px] text-black text-left mt-1">{item.description}</p>
                   )}
                 </div>
               </motion.div>
@@ -542,42 +478,35 @@ const Hero = () => {
 
       {/* Bottom Controls Bar */}
       <div className="absolute bottom-8 left-0 right-0 px-6 md:px-12 flex items-end justify-between pointer-events-none z-50">
-        
+
         <div className="flex items-center gap-3 pointer-events-auto">
-          <motion.button 
+          <motion.button
             ref={aboutButtonRef}
-            whileHover={{ y: -2 }} 
-            onClick={handleAboutClick} 
+            whileHover={{ y: -2 }}
+            onClick={handleAboutClick}
             className="h-[52px] flex items-center justify-center bg-[#1E1E1D] text-white pl-5 pr-6 rounded-xl shadow-lg hover:bg-black transition-colors gap-2"
           >
             {/* Replaced standard Info icon with custom Hexagon Info */}
-            <HexagonInfoIcon className="w-5 h-5" /> 
+            <HexagonInfoIcon className="w-5 h-5" />
             <span className="text-sm font-medium">About</span>
           </motion.button>
         </div>
 
-        <div className="flex items-center gap-6 pointer-events-auto">
-          <div className="hidden md:flex items-center gap-2 text-[#888] select-none">
-            <Move className="w-4 h-4" />
-            <span className="text-sm font-light tracking-wide">Drag to explore</span>
+        {/* Info Section with white background - Bottom right */}
+        <div className="flex items-center gap-6 bg-white text-black rounded-[16px] px-6 py-3 shadow-lg pointer-events-auto">
+          <div className="text-[12px]">
+            <div>Shaping sense through</div>
+            <div>Brand and Product Design</div>
           </div>
 
-          <div className="flex items-center bg-[#f4f4f5] border border-transparent rounded-2xl p-1 shadow-md h-[52px]"> 
-            <button 
-              onClick={() => handleButtonZoom('out')} 
-              className="w-10 h-full flex items-center justify-center rounded-xl hover:bg-white text-[#1E1E1D] transition-colors"
-              aria-label="Zoom out"
-            >
-              <Minus className="w-5 h-5" />
-            </button>
-            <div className="w-px h-4 bg-[#ddd)" />
-            <button 
-              onClick={() => handleButtonZoom('in')} 
-              className="w-10 h-full flex items-center justify-center rounded-xl hover:bg-white text-[#1E1E1D] transition-colors"
-              aria-label="Zoom in"
-            >
-              <Plus className="w-5 h-5" />
-            </button>
+          <div className="text-[12px]">
+            <div>hello@dorodavid.com</div>
+            <div>+39 3456366497</div>
+          </div>
+
+          <div className="text-[12px]">
+            <div>San Zeno, 31100</div>
+            <div>Treviso, Italia.</div>
           </div>
         </div>
       </div>
