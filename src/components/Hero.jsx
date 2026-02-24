@@ -405,7 +405,7 @@ const Hero = () => {
       animate={{ opacity: 1 }}
       // Prevent fade out if we are expanding into the About page to avoid white flash
       exit={isExpandingAbout ? { opacity: 1 } : { opacity: 0, scale: 0.95, transition: { duration: 0.4 } }}
-      className="relative w-screen h-screen overflow-hidden bg-[#FFFFFF]"
+      className="relative w-screen h-screen overflow-hidden bg-[#FFFFFF] "
     >
 
       {/* Expanding Overlay for About Page Transition */}
