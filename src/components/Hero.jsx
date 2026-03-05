@@ -62,56 +62,55 @@ const Hero = () => {
       id: 1,
       name: "Muso",
       description: 'Brand, Strategy, Web & Product Design',
-      image:'/muso.jpg',
+      image: '/muso.jpg',
       bucketFolder: "Muso",
-      x: '-7%',
-      y: '10%',
-      width: '270px',
-      size: 'w-30',
-      height: '270px',
-      rotation: -30
+      x: '-5%',
+      y: '15%',
+      width: '370px',
+      height: '370px',
+      rotation: -15
     },
     {
       id: 2,
       name: "ApCollective",
       description: 'Portfolio',
-      image:'/apcollective.png',
+      image: '/apcollective.png',
       bucketFolder: "ApCollective",
-      x: '25%',
-      y: '10%',
-      rotation: -15,
-      width: '150px',
-      height: '188px'
+      x: '30%',
+      y: '20%',
+      rotation: -30,
+      width: '120px',
+      height: '170px'
     },
     {
       id: 3,
       name: "Abaco",
       description: 'Product Design',
-      image:'/abaco.jpg',
+      image: '/abaco.jpg',
       bucketFolder: "Abaco",
-      x: '50%',
-      y: '10%',
+      x: '60%',
+      y: '20%',
       rotation: 30,
-      width: '160px',
-      height: '160px'
+      width: '170px',
+      height: '170px'
     },
     {
-      id: 2,
+      id: 4,
       name: "Albed Price Book",
       description: 'Strategy & Editorial Design',
-      image:'/albed.jpg',
+      image: '/albed.jpg',
       bucketFolder: "Muso",
-      x: '75%',
-      y: '10%',
-      width: '270px',
-      height: '270px',
+      x: '85%',
+      y: '15%',
+      width: '370px',
+      height: '370px',
       rotation: 30
     },
     {
-      id: 7,
+      id: 5,
       name: "Empathy Design",
       description: 'Logo & Set Design',
-      image:'/checked.png',
+      image: '/checked.png',
       bucketFolder: "Empathy-Design",
       x: '-10%',
       y: '50%',
@@ -120,10 +119,10 @@ const Hero = () => {
       height: '160px'
     },
     {
-      id: 10,
+      id: 6,
       name: "Syform",
       description: 'Set & Graphic Design',
-      image:'/checked.png',
+      image: '/checked.png',
       bucketFolder: "Syform",
       x: '5%',
       y: '65%',
@@ -131,77 +130,79 @@ const Hero = () => {
       height: '160px',
       rotation: -30
     },
-    
+
     {
-      id: 9,
+      id: 7,
       name: "Grillwise",
       description: 'Brand & Web Design',
-      image:'grillwise.jpg',
+      image: 'grillwise.jpg',
       bucketFolder: "Grillwise",
       x: '75%',
-      y: '40%',
-      width:'288px',
-      height:'160px',
+      y: '50%',
+      width: '288px',
+      height: '160px',
       rotation: 30
     },
     {
-      id: 4,
+      id: 8,
       name: "The Social Fablab",
       description: 'Speculative & Brand Design',
-      image:'/fablab.jpg',
+      image: '/fablab.jpg',
       bucketFolder: "The-Social-Fablab",
       x: '55%',
       y: '68%',
       rotation: 30,
       width: '178px',
-      height:'96px'
+      height: '96px'
     },
     {
-      id: 5,
+      id: 9,
       name: "Diversa",
       description: 'Strategy & Brand Design',
-      image:'/checked.png',
+      image: '/checked.png',
       bucketFolder: "Diversa",
       x: '75%',
       y: '65%',
-      size: 'w-64 md:w-80',
-      rotation: 5,
+      width: '160px',
+      height: '160px',
+      rotation: 30,
       aspectRatio: 'aspect-video'
     },
     {
-      id: 6,
+      id: 10,
       name: "Upcoming",
       bucketFolder: "Culto-della-Luce",
-      image:'/checked.png',
+      image: '/checked.png',
       x: '25%',
       y: '68%',
-      size: 'w-48 md:w-60',
-      rotation: 30
+      rotation: -15,
+      width: '160',
+      height: '208px'
     },
     {
       id: 11,
       x: '25%',
       y: '49%',
-      image:'/home.jpg',
+      image: '/home.jpg',
       size: 'w-48 md:w-60',
-      width:'96px',
-      height:'96px',
+      width: '96px',
+      height: '96px',
       rotation: -30
     },
     {
       id: 12,
-      name:'????',
+      name: '????',
       x: '105%',
-      image:'checked.png',
+      image: 'checked.png',
       y: '45%',
       size: 'w-48 md:w-60',
-      width:'96px',
-      height:'96px',
-      rotation: 30
+      width: '96px',
+      height: '96px',
+      rotation: 45
     },
 
 
-    
+
 
   ]);
 
@@ -250,10 +251,36 @@ const Hero = () => {
     });
   };
 
-  // Mouse Wheel Scroll Logic (Horizontal and Vertical)
+  // Mouse Wheel Scroll Logic (Horizontal and Vertical) with Boundaries
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
+    
+    // Calculate boundaries based on canvas and viewport dimensions
+    const canvasWidth = 1500;
+    const canvasHeight = 1603;
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    
+    // Independent boundary factors for horizontal and vertical
+    const horizontalBoundaryFactor = 3.5; // Increased for much more horizontal range
+    const verticalBoundaryFactor = 0.8;
+    
+    // Calculate max scroll distances independently
+    // Ensure minimum scroll range even on large viewports
+    const maxScrollX = Math.max(1000, Math.abs(canvasWidth - viewportWidth) * horizontalBoundaryFactor);
+    const maxScrollY = Math.max(300, Math.abs(canvasHeight - viewportHeight) * verticalBoundaryFactor);
+    
+    // Debug: log the calculated boundaries
+    console.log('Scroll Boundaries:', {
+      viewportWidth,
+      viewportHeight,
+      canvasWidth,
+      canvasHeight,
+      maxScrollX,
+      maxScrollY
+    });
+    
     const onWheel = e => {
       e.preventDefault();
 
@@ -268,15 +295,21 @@ const Hero = () => {
       if (e.shiftKey) {
         // Horizontal scroll when holding shift
         const newX = currentX - e.deltaY * scrollSpeed;
-        x.set(newX);
+        // Clamp to boundaries
+        const clampedX = Math.max(-maxScrollX, Math.min(maxScrollX, newX));
+        x.set(clampedX);
       } else {
         // Vertical scroll (primary)
         const newY = currentY - e.deltaY * scrollSpeed;
+        // Clamp to boundaries
+        const clampedY = Math.max(-maxScrollY, Math.min(maxScrollY, newY));
+        y.set(clampedY);
+        
         // Also support horizontal scroll with deltaX (for trackpads)
-        const newX = currentX - e.deltaX * scrollSpeed;
-        y.set(newY);
         if (e.deltaX !== 0) {
-          x.set(newX);
+          const newX = currentX - e.deltaX * scrollSpeed;
+          const clampedX = Math.max(-maxScrollX, Math.min(maxScrollX, newX));
+          x.set(clampedX);
         }
       }
     };
@@ -378,15 +411,17 @@ const Hero = () => {
         <motion.div
           drag
           dragConstraints={{
-            left: -1120,
-            right: 1120,
-            top: -801.5,
-            bottom: 801.5
+            // Horizontal boundaries (independent - adjust horizontalBoundaryFactor above)
+            left: -Math.max(1000, Math.abs(1500 - window.innerWidth) * 3.5),
+            right: Math.max(1000, Math.abs(1500 - window.innerWidth) * 3.5),
+            // Vertical boundaries (independent - adjust verticalBoundaryFactor above)
+            top: -Math.max(300, Math.abs(1603 - window.innerHeight) * 0.8),
+            bottom: Math.max(300, Math.abs(1603 - window.innerHeight) * 0.8)
           }}
-          dragElastic={0.1}
-          dragMomentum={true}
+          dragElastic={0}
+          dragMomentum={false}
           style={{
-            width: '2240px',
+            width: '1500px',
             height: '1603px',
             x,
             y
@@ -405,7 +440,7 @@ const Hero = () => {
           {/* Centered Text */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-start pointer-events-none max-w-2xl px-4">
             <p className="text-black text-[16px] leading-relaxed font-bold">
-              Lorem ipsum dolor sit amet <br/>consectetur adipiscing elit Ut et <br/>massa mi. Aliquam in hendrerit <br/>urna. Pellentesque sit amet
+              Lorem ipsum dolor sit amet <br />consectetur adipiscing elit Ut et <br />massa mi. Aliquam in hendrerit <br />urna. Pellentesque sit amet
             </p>
           </div>
 
@@ -462,7 +497,7 @@ const Hero = () => {
                     </motion.div>
                   )}
                 </div>
-                
+
                 {/* Name and Description below the image */}
                 <div className="mt-3 pointer-events-none">
                   <h3 className="text-[14px] font-bold text-black">{item.name}</h3>
@@ -494,17 +529,17 @@ const Hero = () => {
 
         {/* Info Section with white background - Bottom right */}
         <div className="flex items-center gap-6 bg-white text-black rounded-[16px] px-6 py-3 shadow-lg pointer-events-auto">
-          <div className="text-[12px]">
+          <div className="text-[15px] font-semibold">
             <div>Shaping sense through</div>
             <div>Brand and Product Design</div>
           </div>
 
-          <div className="text-[12px]">
+          <div className="text-[15px] font-semibold">
             <div>hello@dorodavid.com</div>
             <div>+39 3456366497</div>
           </div>
 
-          <div className="text-[12px]">
+          <div className="text-[15px] font-semibold">
             <div>San Zeno, 31100</div>
             <div>Treviso, Italia.</div>
           </div>

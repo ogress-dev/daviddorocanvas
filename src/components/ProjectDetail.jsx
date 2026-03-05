@@ -138,6 +138,9 @@ const ProjectDetail = () => {
       if (window.innerWidth >= 768) {
         e.preventDefault();
         const state = scrollState.current;
+        
+        // Calculate max scroll to prevent content from disappearing
+        // We want to stop scrolling when the last element is still visible
         const maxScroll = container.scrollWidth - container.clientWidth;
 
         // Accumulate deltaY into our target. 
