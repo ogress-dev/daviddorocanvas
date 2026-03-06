@@ -2,8 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, useMotionValue, animate, AnimatePresence } from 'framer-motion';
 import { Move } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
-import { useNavigate }
-  from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import Logo from '@/components/Logo';
 
 // Custom Hexagon Info Icon
 const HexagonInfoIcon = ({ className }) => (
@@ -65,9 +65,11 @@ const Hero = () => {
       image: '/muso.jpg',
       bucketFolder: "Muso",
       x: '-5%',
+      xMobile: '-90%',
       y: '15%',
-      width: '370px',
-      height: '370px',
+      yMobile: '35%',
+      width: '270px',
+      height: '270px',
       rotation: -15
     },
     {
@@ -77,7 +79,9 @@ const Hero = () => {
       image: '/apcollective.png',
       bucketFolder: "ApCollective",
       x: '30%',
+      xMobile: '-10%',
       y: '20%',
+      yMobile: '24%',
       rotation: -30,
       width: '120px',
       height: '170px'
@@ -89,7 +93,9 @@ const Hero = () => {
       image: '/abaco.jpg',
       bucketFolder: "Abaco",
       x: '60%',
+      xMobile: '60%',
       y: '20%',
+      yMobile: '25%',
       rotation: 30,
       width: '170px',
       height: '170px'
@@ -101,9 +107,11 @@ const Hero = () => {
       image: '/albed.jpg',
       bucketFolder: "Muso",
       x: '85%',
+      xMobile: '120%',
       y: '15%',
-      width: '370px',
-      height: '370px',
+      yMobile: '-3%',
+      width: '270px',
+      height: '270px',
       rotation: 30
     },
     {
@@ -113,7 +121,9 @@ const Hero = () => {
       image: '/checked.png',
       bucketFolder: "Empathy-Design",
       x: '-10%',
+      xMobile: '-70%',
       y: '50%',
+      yMobile: '58%',
       rotation: -30,
       width: '160px',
       height: '160px'
@@ -125,7 +135,9 @@ const Hero = () => {
       image: '/checked.png',
       bucketFolder: "Syform",
       x: '5%',
+      xMobile: '-40%',
       y: '65%',
+      yMobile: '75%',
       width: '160px',
       height: '160px',
       rotation: -30
@@ -138,7 +150,9 @@ const Hero = () => {
       image: 'grillwise.jpg',
       bucketFolder: "Grillwise",
       x: '75%',
+      xMobile: '50%',
       y: '50%',
+      yMobile: '65%',
       width: '288px',
       height: '160px',
       rotation: 30
@@ -150,7 +164,9 @@ const Hero = () => {
       image: '/fablab.jpg',
       bucketFolder: "The-Social-Fablab",
       x: '55%',
+      xMobile:'85%',
       y: '68%',
+      yMobile: '85%',
       rotation: 30,
       width: '178px',
       height: '96px'
@@ -162,7 +178,9 @@ const Hero = () => {
       image: '/checked.png',
       bucketFolder: "Diversa",
       x: '75%',
+      xMobile:'120%',
       y: '65%',
+      yMobile: '50%',
       width: '160px',
       height: '160px',
       rotation: 30,
@@ -174,7 +192,9 @@ const Hero = () => {
       bucketFolder: "Culto-della-Luce",
       image: '/checked.png',
       x: '25%',
+      xMobile: '16%',
       y: '68%',
+      yMobile: '85%',
       rotation: -15,
       width: '160',
       height: '208px'
@@ -182,7 +202,9 @@ const Hero = () => {
     {
       id: 11,
       x: '25%',
+      xMobile: '55%', // Center on mobile (swapped with lorem ipsum)
       y: '49%',
+      yMobile: '45%',
       image: '/home.jpg',
       size: 'w-48 md:w-60',
       width: '96px',
@@ -193,8 +215,10 @@ const Hero = () => {
       id: 12,
       name: '????',
       x: '105%',
+      xMobile: '150%',
       image: 'checked.png',
       y: '45%',
+      yMobile: '30%',
       size: 'w-48 md:w-60',
       width: '96px',
       height: '96px',
@@ -255,22 +279,22 @@ const Hero = () => {
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
-    
+
     // Calculate boundaries based on canvas and viewport dimensions
     const canvasWidth = 1500;
     const canvasHeight = 1603;
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
-    
+
     // Independent boundary factors for horizontal and vertical
     const horizontalBoundaryFactor = 3.5; // Increased for much more horizontal range
     const verticalBoundaryFactor = 0.8;
-    
+
     // Calculate max scroll distances independently
     // Ensure minimum scroll range even on large viewports
     const maxScrollX = Math.max(1000, Math.abs(canvasWidth - viewportWidth) * horizontalBoundaryFactor);
     const maxScrollY = Math.max(300, Math.abs(canvasHeight - viewportHeight) * verticalBoundaryFactor);
-    
+
     // Debug: log the calculated boundaries
     console.log('Scroll Boundaries:', {
       viewportWidth,
@@ -280,7 +304,7 @@ const Hero = () => {
       maxScrollX,
       maxScrollY
     });
-    
+
     const onWheel = e => {
       e.preventDefault();
 
@@ -304,7 +328,7 @@ const Hero = () => {
         // Clamp to boundaries
         const clampedY = Math.max(-maxScrollY, Math.min(maxScrollY, newY));
         y.set(clampedY);
-        
+
         // Also support horizontal scroll with deltaX (for trackpads)
         if (e.deltaX !== 0) {
           const newX = currentX - e.deltaX * scrollSpeed;
@@ -357,7 +381,7 @@ const Hero = () => {
       animate={{ opacity: 1 }}
       // Prevent fade out if we are expanding into the About page to avoid white flash
       exit={isExpandingAbout ? { opacity: 1 } : { opacity: 0, scale: 0.95, transition: { duration: 0.4 } }}
-      className="relative w-screen h-screen overflow-hidden bg-[#FFFFFF] "
+      className="relative w-screen h-screen overflow-hidden bg-[#FFFFFF]"
     >
 
       {/* Expanding Overlay for About Page Transition */}
@@ -390,13 +414,13 @@ const Hero = () => {
       {/* Top Bar */}
       <div className="absolute top-0 left-0 right-0 z-50 px-6 md:px-12 pt-6 md:pt-8 flex justify-between items-start pointer-events-none">
         <div className="pointer-events-auto cursor-pointer">
-          <img src="https://horizons-cdn.hostinger.com/38ec5550-5152-446c-bb9a-73388eb1666a/193d5ef86fe7049670fde3909cd2cc58.png" alt="Orodavid Logo" className="h-8 md:h-10 w-auto object-contain" />
+          <Logo />
         </div>
 
         {/* Drag to explore hint */}
-        <div className="flex items-center gap-2 text-[#888] select-none pointer-events-auto">
+        <div className="flex items-center gap-2 text-[#888] select-none pointer-events-auto hidden sm:flex">
           <Move className="w-4 h-4" />
-          <span className="text-sm font-light tracking-wide">Drag or scroll to explore</span>
+          <span className="text-sm font-light tracking-wide">Drag to explore</span>
         </div>
       </div>
 
@@ -426,26 +450,22 @@ const Hero = () => {
             x,
             y
           }}
-          className="relative bg-[#FFFFFF]"
+          className="relative"
         >
-          {/* Grid pattern */}
-          <div
-            className="absolute inset-0 opacity-[0.03] pointer-events-none"
-            style={{
-              backgroundImage: 'radial-gradient(#1E1E1D 1px, transparent 1px)',
-              backgroundSize: '40px 40px'
-            }}
-          />
-
           {/* Centered Text */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-start pointer-events-none max-w-2xl px-4">
-            <p className="text-black text-[16px] leading-relaxed font-bold">
+          <div className="absolute top-1/2 md:left-1/2 left-[25%] -translate-x-1/2 -translate-y-1/2 text-start pointer-events-none max-w-2xl px-4">
+            <p className="text-black text-[16px] leading-relaxed font-bold w-[159px] sm:w-full">
               Lorem ipsum dolor sit amet <br />consectetur adipiscing elit Ut et <br />massa mi. Aliquam in hendrerit <br />urna. Pellentesque sit amet
             </p>
           </div>
 
           {items.map(item => {
             const isClickable = item.id !== 4;
+            // Use mobile position if available and on mobile viewport
+            const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+            const itemX = isMobile && item.xMobile ? item.xMobile : item.x;
+            const itemY = isMobile && item.yMobile ? item.yMobile : item.y;
+
             return (
               <motion.div
                 key={item.id}
@@ -460,8 +480,8 @@ const Hero = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8 }}
                 style={{
-                  left: item.x,
-                  top: item.y,
+                  left: itemX,
+                  top: itemY,
                   rotate: item.rotation,
                   width: item.width || undefined,
                   height: item.height || undefined
@@ -499,7 +519,7 @@ const Hero = () => {
                 </div>
 
                 {/* Name and Description below the image */}
-                <div className="mt-3 pointer-events-none">
+                <div className="mt-3 pointer-events-none hidden sm:block">
                   <h3 className="text-[14px] font-bold text-black">{item.name}</h3>
                   {item.description && (
                     <p className="text-[12px] text-black text-left mt-1">{item.description}</p>
@@ -514,21 +534,21 @@ const Hero = () => {
       {/* Bottom Controls Bar */}
       <div className="absolute bottom-8 left-0 right-0 px-6 md:px-12 flex items-end justify-between pointer-events-none z-50">
 
-        <div className="flex items-center gap-3 pointer-events-auto">
-          <motion.button
-            ref={aboutButtonRef}
-            whileHover={{ y: -2 }}
-            onClick={handleAboutClick}
-            className="h-[52px] flex items-center justify-center bg-[#1E1E1D] text-white pl-5 pr-6 rounded-xl shadow-lg hover:bg-black transition-colors gap-2"
-          >
-            {/* Replaced standard Info icon with custom Hexagon Info */}
-            <HexagonInfoIcon className="w-5 h-5" />
-            <span className="text-sm font-medium">About</span>
-          </motion.button>
-        </div>
+        <div className="flex items-center justify-center gap-3 pointer-events-auto w-full md:w-auto">
+  <motion.button
+    ref={aboutButtonRef}
+    whileHover={{ y: -2 }}
+    onClick={handleAboutClick}
+    className="h-[52px] w-full md:w-auto flex items-center justify-center bg-[#1E1E1D] text-white px-6 rounded-xl shadow-lg hover:bg-black transition-colors gap-2"
+  >
+    {/* Replaced standard Info icon with custom Hexagon Info */}
+    <HexagonInfoIcon className="w-5 h-5 flex-shrink-0" />
+    <span className="text-sm font-medium">About</span>
+  </motion.button>
+</div>
 
         {/* Info Section with white background - Bottom right */}
-        <div className="flex items-center gap-6 bg-white text-black rounded-[16px] px-6 py-3 shadow-lg pointer-events-auto">
+        <div className="sm:flex hidden items-center gap-6 bg-white text-black rounded-[16px] px-6 py-3 shadow-lg pointer-events-auto">
           <div className="text-[15px] font-semibold">
             <div>Shaping sense through</div>
             <div>Brand and Product Design</div>
