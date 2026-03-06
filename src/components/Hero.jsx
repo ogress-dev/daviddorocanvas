@@ -427,8 +427,7 @@ const Hero = () => {
       {/* Draggable Canvas Area */}
       <motion.div
         ref={containerRef}
-        className="w-full h-full cursor-grab active:cursor-grabbing touch-none flex items-center justify-center"
-        style={{ touchAction: 'none' }}
+        className="w-full h-full cursor-grab active:cursor-grabbing flex items-center justify-center"
         onTouchStart={handleTouchStart}
         onDoubleClick={handleResetView}
       >
@@ -442,8 +441,8 @@ const Hero = () => {
             top: -Math.max(300, Math.abs(1603 - window.innerHeight) * 0.8),
             bottom: Math.max(300, Math.abs(1603 - window.innerHeight) * 0.8)
           }}
-          dragElastic={0}
-          dragMomentum={false}
+          dragElastic={0.05}
+          dragTransition={{ bounceStiffness: 300, bounceDamping: 20, power: 0.2 }}
           style={{
             width: '1500px',
             height: '1603px',
