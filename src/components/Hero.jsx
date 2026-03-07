@@ -34,6 +34,15 @@ const Hero = () => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
+  // Center the canvas on mount
+  useEffect(() => {
+    // Calculate offset to center the main content (row 2 projects from 0px to 1280px)
+    // Center point of main content: 640px
+    // Offset needed: (viewport width / 2) - 640px
+    const centerOffset = (window.innerWidth / 2) - 640;
+    x.set(centerOffset);
+  }, []);
+
   // State for the custom "View Reset" message visibility
   const [showResetMessage, setShowResetMessage] = useState(false);
 
@@ -58,174 +67,6 @@ const Hero = () => {
 
   // State for items
   const [items, setItems] = useState([
-    {
-      id: 1,
-      name: "Muso",
-      description: 'Brand, Strategy, Web & Product Design',
-      image: '/muso.jpg',
-      bucketFolder: "Muso",
-      x: '-5%',
-      xMobile: '-90%',
-      y: '15%',
-      yMobile: '35%',
-      width: '270px',
-      height: '270px',
-      rotation: -15
-    },
-    {
-      id: 2,
-      name: "ApCollective",
-      description: 'Portfolio',
-      image: '/apcollective.png',
-      bucketFolder: "ApCollective",
-      x: '30%',
-      xMobile: '-10%',
-      y: '20%',
-      yMobile: '24%',
-      rotation: -30,
-      width: '120px',
-      height: '170px'
-    },
-    {
-      id: 3,
-      name: "Abaco",
-      description: 'Product Design',
-      image: '/abaco.jpg',
-      bucketFolder: "Abaco",
-      x: '60%',
-      xMobile: '60%',
-      y: '20%',
-      yMobile: '25%',
-      rotation: 30,
-      width: '170px',
-      height: '170px'
-    },
-    {
-      id: 4,
-      name: "Albed Price Book",
-      description: 'Strategy & Editorial Design',
-      image: '/albed.jpg',
-      bucketFolder: "Muso",
-      x: '85%',
-      xMobile: '120%',
-      y: '15%',
-      yMobile: '-3%',
-      width: '270px',
-      height: '270px',
-      rotation: 30
-    },
-    {
-      id: 5,
-      name: "Empathy Design",
-      description: 'Logo & Set Design',
-      image: '/checked.png',
-      bucketFolder: "Empathy-Design",
-      x: '-10%',
-      xMobile: '-70%',
-      y: '50%',
-      yMobile: '58%',
-      rotation: -30,
-      width: '160px',
-      height: '160px'
-    },
-    {
-      id: 6,
-      name: "Syform",
-      description: 'Set & Graphic Design',
-      image: '/checked.png',
-      bucketFolder: "Syform",
-      x: '5%',
-      xMobile: '-40%',
-      y: '65%',
-      yMobile: '75%',
-      width: '160px',
-      height: '160px',
-      rotation: -30
-    },
-
-    {
-      id: 7,
-      name: "Grillwise",
-      description: 'Brand & Web Design',
-      image: 'grillwise.jpg',
-      bucketFolder: "Grillwise",
-      x: '75%',
-      xMobile: '50%',
-      y: '50%',
-      yMobile: '65%',
-      width: '288px',
-      height: '160px',
-      rotation: 30
-    },
-    {
-      id: 8,
-      name: "The Social Fablab",
-      description: 'Speculative & Brand Design',
-      image: '/fablab.jpg',
-      bucketFolder: "The-Social-Fablab",
-      x: '55%',
-      xMobile:'85%',
-      y: '68%',
-      yMobile: '85%',
-      rotation: 30,
-      width: '178px',
-      height: '96px'
-    },
-    {
-      id: 9,
-      name: "Diversa",
-      description: 'Strategy & Brand Design',
-      image: '/checked.png',
-      bucketFolder: "Diversa",
-      x: '75%',
-      xMobile:'120%',
-      y: '65%',
-      yMobile: '50%',
-      width: '160px',
-      height: '160px',
-      rotation: 30,
-      aspectRatio: 'aspect-video'
-    },
-    {
-      id: 10,
-      name: "Upcoming",
-      bucketFolder: "Culto-della-Luce",
-      image: '/checked.png',
-      x: '25%',
-      xMobile: '16%',
-      y: '68%',
-      yMobile: '85%',
-      rotation: -15,
-      width: '160',
-      height: '208px'
-    },
-    {
-      id: 11,
-      x: '25%',
-      xMobile: '55%', // Center on mobile (swapped with lorem ipsum)
-      y: '49%',
-      yMobile: '45%',
-      image: '/home.jpg',
-      size: 'w-48 md:w-60',
-      width: '96px',
-      height: '96px',
-      rotation: -30
-    },
-    {
-      id: 12,
-      name: '????',
-      x: '105%',
-      xMobile: '150%',
-      image: 'checked.png',
-      y: '45%',
-      yMobile: '30%',
-      size: 'w-48 md:w-60',
-      width: '96px',
-      height: '96px',
-      rotation: 45
-    },
-
-
 
 
   ]);
@@ -281,7 +122,7 @@ const Hero = () => {
     if (!container) return;
 
     // Calculate boundaries based on canvas and viewport dimensions
-    const canvasWidth = 1500;
+    const canvasWidth = 1920;
     const canvasHeight = 1603;
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
@@ -435,8 +276,8 @@ const Hero = () => {
           drag
           dragConstraints={{
             // Horizontal boundaries (independent - adjust horizontalBoundaryFactor above)
-            left: -Math.max(1000, Math.abs(1500 - window.innerWidth) * 3.5),
-            right: Math.max(1000, Math.abs(1500 - window.innerWidth) * 3.5),
+            left: -Math.max(1000, Math.abs(1920 - window.innerWidth) * 3.5),
+            right: Math.max(1000, Math.abs(1920 - window.innerWidth) * 3.5),
             // Vertical boundaries (independent - adjust verticalBoundaryFactor above)
             top: -Math.max(300, Math.abs(1603 - window.innerHeight) * 0.8),
             bottom: Math.max(300, Math.abs(1603 - window.innerHeight) * 0.8)
@@ -444,16 +285,704 @@ const Hero = () => {
           dragElastic={0.05}
           dragTransition={{ bounceStiffness: 300, bounceDamping: 20, power: 0.2 }}
           style={{
-            width: '1500px',
+            width: '1920px',
             height: '1603px',
             x,
-            y
+            y,
+            backgroundImage: `
+              linear-gradient(to right, rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '320px 320px',
+            backgroundPosition: '320px 0px'
           }}
           className="relative"
         >
-          {/* Centered Text */}
-          <div className="absolute top-1/2 md:left-1/2 left-[25%] -translate-x-1/2 -translate-y-1/2 text-start pointer-events-none max-w-2xl px-4">
-            <p className="text-black text-[16px] leading-relaxed font-bold w-[159px] sm:w-full">
+          {/* First grid cell with blue background */}
+          <div 
+            className="absolute bg-blue-100" 
+            style={{
+              left: '0px',
+              top: '0px',
+              width: '320px',
+              height: '320px'
+            }}
+          />
+
+          {/* Second row, first column - Muso cell */}
+          <div 
+            className="absolute bg-blue-200 flex items-center justify-center" 
+            style={{
+              left: '0px',
+              top: '320px',
+              width: '320px',
+              height: '320px'
+            }}
+          >
+            {/* Muso Project inside this cell */}
+            <motion.div
+              drag={false}
+              whileHover={{
+                scale: 1.05,
+                zIndex: 50,
+                rotate: -15
+              }}
+              onTap={() => {
+                const clickTimeout = setTimeout(() => {
+                  navigate(`/project/1`);
+                }, 250);
+              }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              style={{
+                rotate: -15,
+                width: '270px',
+                height: '270px'
+              }}
+              className="cursor-pointer group"
+            >
+              <div
+                className="relative rounded-[16px] overflow-hidden bg-white shadow-lg transition-shadow duration-500 group-hover:shadow-2xl flex items-center justify-center"
+                style={{
+                  width: '100%',
+                  height: '100%'
+                }}
+              >
+                <img src="/muso.jpg" alt="Muso" className="w-full h-full object-cover" />
+                
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  whileHover={{ opacity: 1, y: 0 }}
+                  className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[#1E1E1D] text-white px-4 py-2 shadow-lg rounded-[24px] whitespace-nowrap z-40 pointer-events-none"
+                >
+                  <span className="text-xs font-medium tracking-wide">View Product</span>
+                </motion.div>
+              </div>
+
+              <div className="mt-3 pointer-events-none hidden sm:block">
+                <h3 className="text-[14px] font-bold text-black">Muso</h3>
+                <p className="text-[12px] text-black text-left mt-1">Brand, Strategy, Web & Product Design</p>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Second row, second column - ApCollective cell */}
+          <div 
+            className="absolute bg-blue-300 flex items-center justify-center" 
+            style={{
+              left: '320px',
+              top: '320px',
+              width: '320px',
+              height: '320px'
+            }}
+          >
+            {/* ApCollective Project inside this cell */}
+            <motion.div
+              drag={false}
+              whileHover={{
+                scale: 1.05,
+                zIndex: 50,
+                rotate: -30
+              }}
+              onTap={() => {
+                const clickTimeout = setTimeout(() => {
+                  navigate(`/project/2`);
+                }, 250);
+              }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              style={{
+                rotate: -30,
+                width: '120px',
+                height: '170px'
+              }}
+              className="cursor-pointer group"
+            >
+              <div
+                className="relative rounded-[16px] overflow-hidden bg-white shadow-lg transition-shadow duration-500 group-hover:shadow-2xl flex items-center justify-center"
+                style={{
+                  width: '100%',
+                  height: '100%'
+                }}
+              >
+                <img src="/apcollective.png" alt="ApCollective" className="w-full h-full object-cover" />
+                
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  whileHover={{ opacity: 1, y: 0 }}
+                  className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[#1E1E1D] text-white px-4 py-2 shadow-lg rounded-[24px] whitespace-nowrap z-40 pointer-events-none"
+                >
+                  <span className="text-xs font-medium tracking-wide">View Product</span>
+                </motion.div>
+              </div>
+
+              <div className="mt-3 pointer-events-none hidden sm:block">
+                <h3 className="text-[14px] font-bold text-black">ApCollective</h3>
+                <p className="text-[12px] text-black text-left mt-1">Portfolio</p>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Second row, third column - Abaco cell */}
+          <div 
+            className="absolute bg-blue-400 flex items-center justify-center" 
+            style={{
+              left: '640px',
+              top: '320px',
+              width: '320px',
+              height: '320px'
+            }}
+          >
+            {/* Abaco Project inside this cell */}
+            <motion.div
+              drag={false}
+              whileHover={{
+                scale: 1.05,
+                zIndex: 50,
+                rotate: 30
+              }}
+              onTap={() => {
+                const clickTimeout = setTimeout(() => {
+                  navigate(`/project/3`);
+                }, 250);
+              }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              style={{
+                rotate: 30,
+                width: '170px',
+                height: '170px'
+              }}
+              className="cursor-pointer group"
+            >
+              <div
+                className="relative rounded-[16px] overflow-hidden bg-white shadow-lg transition-shadow duration-500 group-hover:shadow-2xl flex items-center justify-center"
+                style={{
+                  width: '100%',
+                  height: '100%'
+                }}
+              >
+                <img src="/abaco.jpg" alt="Abaco" className="w-full h-full object-cover" />
+                
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  whileHover={{ opacity: 1, y: 0 }}
+                  className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[#1E1E1D] text-white px-4 py-2 shadow-lg rounded-[24px] whitespace-nowrap z-40 pointer-events-none"
+                >
+                  <span className="text-xs font-medium tracking-wide">View Product</span>
+                </motion.div>
+              </div>
+
+              <div className="mt-3 pointer-events-none hidden sm:block">
+                <h3 className="text-[14px] font-bold text-black">Abaco</h3>
+                <p className="text-[12px] text-black text-left mt-1">Product Design</p>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Second row, fourth column - Albed Price Book cell */}
+          <div 
+            className="absolute bg-blue-500 flex items-center justify-center" 
+            style={{
+              left: '960px',
+              top: '320px',
+              width: '320px',
+              height: '320px'
+            }}
+          >
+            {/* Albed Price Book Project inside this cell */}
+            <motion.div
+              drag={false}
+              whileHover={{
+                scale: 1.05,
+                zIndex: 50,
+                rotate: 30
+              }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              style={{
+                rotate: 30,
+                width: '270px',
+                height: '270px'
+              }}
+              className="group"
+            >
+              <div
+                className="relative rounded-[16px] overflow-hidden bg-white shadow-lg transition-shadow duration-500 flex items-center justify-center"
+                style={{
+                  width: '100%',
+                  height: '100%'
+                }}
+              >
+                <img src="/albed.jpg" alt="Albed Price Book" className="w-full h-full object-cover" />
+              </div>
+
+              <div className="mt-3 pointer-events-none hidden sm:block">
+                <h3 className="text-[14px] font-bold text-black">Albed Price Book</h3>
+                <p className="text-[12px] text-black text-left mt-1">Strategy & Editorial Design</p>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Third row, column -1 - Empathy Design cell (shifted left) */}
+          <div 
+            className="absolute bg-green-200 flex items-center justify-center" 
+            style={{
+              left: '-320px',
+              top: '640px',
+              width: '320px',
+              height: '320px'
+            }}
+          >
+            {/* Empathy Design Project inside this cell */}
+            <motion.div
+              drag={false}
+              whileHover={{
+                scale: 1.05,
+                zIndex: 50,
+                rotate: -30
+              }}
+              onTap={() => {
+                const clickTimeout = setTimeout(() => {
+                  navigate(`/project/5`);
+                }, 250);
+              }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              style={{
+                rotate: -30,
+                width: '160px',
+                height: '160px'
+              }}
+              className="cursor-pointer group"
+            >
+              <div
+                className="relative rounded-[16px] overflow-hidden bg-white shadow-lg transition-shadow duration-500 group-hover:shadow-2xl flex items-center justify-center"
+                style={{
+                  width: '100%',
+                  height: '100%'
+                }}
+              >
+                <img src="/checked.png" alt="Empathy Design" className="w-full h-full object-cover" />
+                
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  whileHover={{ opacity: 1, y: 0 }}
+                  className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[#1E1E1D] text-white px-4 py-2 shadow-lg rounded-[24px] whitespace-nowrap z-40 pointer-events-none"
+                >
+                  <span className="text-xs font-medium tracking-wide">View Product</span>
+                </motion.div>
+              </div>
+
+              <div className="mt-3 pointer-events-none hidden sm:block">
+                <h3 className="text-[14px] font-bold text-black">Empathy Design</h3>
+                <p className="text-[12px] text-black text-left mt-1">Logo & Set Design</p>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Third row, fourth column - Grillwise cell (below Albed) */}
+          <div 
+            className="absolute bg-purple-200 flex items-center justify-center" 
+            style={{
+              left: '960px',
+              top: '640px',
+              width: '320px',
+              height: '320px'
+            }}
+          >
+            {/* Grillwise Project inside this cell */}
+            <motion.div
+              drag={false}
+              whileHover={{
+                scale: 1.05,
+                zIndex: 50,
+                rotate: 30
+              }}
+              onTap={() => {
+                const clickTimeout = setTimeout(() => {
+                  navigate(`/project/7`);
+                }, 250);
+              }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              style={{
+                rotate: 30,
+                width: '288px',
+                height: '160px'
+              }}
+              className="cursor-pointer group"
+            >
+              <div
+                className="relative rounded-[16px] overflow-hidden bg-white shadow-lg transition-shadow duration-500 group-hover:shadow-2xl flex items-center justify-center"
+                style={{
+                  width: '100%',
+                  height: '100%'
+                }}
+              >
+                <img src="/grillwise.jpg" alt="Grillwise" className="w-full h-full object-cover" />
+                
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  whileHover={{ opacity: 1, y: 0 }}
+                  className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[#1E1E1D] text-white px-4 py-2 shadow-lg rounded-[24px] whitespace-nowrap z-40 pointer-events-none"
+                >
+                  <span className="text-xs font-medium tracking-wide">View Product</span>
+                </motion.div>
+              </div>
+
+              <div className="mt-3 pointer-events-none hidden sm:block">
+                <h3 className="text-[14px] font-bold text-black">Grillwise</h3>
+                <p className="text-[12px] text-black text-left mt-1">Brand & Web Design</p>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Third row, fifth column - ??? cell (beside Grillwise) */}
+          <div 
+            className="absolute bg-purple-300 flex items-center justify-center" 
+            style={{
+              left: '1280px',
+              top: '640px',
+              width: '320px',
+              height: '320px'
+            }}
+          >
+            {/* ??? Project inside this cell */}
+            <motion.div
+              drag={false}
+              whileHover={{
+                scale: 1.05,
+                zIndex: 50,
+                rotate: 45
+              }}
+              onTap={() => {
+                const clickTimeout = setTimeout(() => {
+                  navigate(`/project/12`);
+                }, 250);
+              }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              style={{
+                rotate: 45,
+                width: '96px',
+                height: '96px'
+              }}
+              className="cursor-pointer group"
+            >
+              <div
+                className="relative rounded-[16px] overflow-hidden bg-white shadow-lg transition-shadow duration-500 group-hover:shadow-2xl flex items-center justify-center"
+                style={{
+                  width: '100%',
+                  height: '100%'
+                }}
+              >
+                <img src="/checked.png" alt="????" className="w-full h-full object-cover" />
+                
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  whileHover={{ opacity: 1, y: 0 }}
+                  className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[#1E1E1D] text-white px-4 py-2 shadow-lg rounded-[24px] whitespace-nowrap z-40 pointer-events-none"
+                >
+                  <span className="text-xs font-medium tracking-wide">View Product</span>
+                </motion.div>
+              </div>
+
+              <div className="mt-3 pointer-events-none hidden sm:block">
+                <h3 className="text-[14px] font-bold text-black">????</h3>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Fourth row, first column - Syform cell (below Empathy Design) */}
+          <div 
+            className="absolute bg-green-300 flex items-center justify-center" 
+            style={{
+              left: '0px',
+              top: '960px',
+              width: '320px',
+              height: '320px'
+            }}
+          >
+            {/* Syform Project inside this cell */}
+            <motion.div
+              drag={false}
+              whileHover={{
+                scale: 1.05,
+                zIndex: 50,
+                rotate: -30
+              }}
+              onTap={() => {
+                const clickTimeout = setTimeout(() => {
+                  navigate(`/project/6`);
+                }, 250);
+              }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              style={{
+                rotate: -30,
+                width: '160px',
+                height: '160px'
+              }}
+              className="cursor-pointer group"
+            >
+              <div
+                className="relative rounded-[16px] overflow-hidden bg-white shadow-lg transition-shadow duration-500 group-hover:shadow-2xl flex items-center justify-center"
+                style={{
+                  width: '100%',
+                  height: '100%'
+                }}
+              >
+                <img src="/checked.png" alt="Syform" className="w-full h-full object-cover" />
+                
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  whileHover={{ opacity: 1, y: 0 }}
+                  className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[#1E1E1D] text-white px-4 py-2 shadow-lg rounded-[24px] whitespace-nowrap z-40 pointer-events-none"
+                >
+                  <span className="text-xs font-medium tracking-wide">View Product</span>
+                </motion.div>
+              </div>
+
+              <div className="mt-3 pointer-events-none hidden sm:block">
+                <h3 className="text-[14px] font-bold text-black">Syform</h3>
+                <p className="text-[12px] text-black text-left mt-1">Set & Graphic Design</p>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Fourth row, second column - Upcoming cell (to the right of Syform) */}
+          <div 
+            className="absolute bg-green-400 flex items-center justify-center" 
+            style={{
+              left: '320px',
+              top: '960px',
+              width: '320px',
+              height: '320px'
+            }}
+          >
+            {/* Upcoming Project inside this cell */}
+            <motion.div
+              drag={false}
+              whileHover={{
+                scale: 1.05,
+                zIndex: 50,
+                rotate: -15
+              }}
+              onTap={() => {
+                const clickTimeout = setTimeout(() => {
+                  navigate(`/project/10`);
+                }, 250);
+              }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              style={{
+                rotate: -15,
+                width: '160px',
+                height: '208px'
+              }}
+              className="cursor-pointer group"
+            >
+              <div
+                className="relative rounded-[16px] overflow-hidden bg-white shadow-lg transition-shadow duration-500 group-hover:shadow-2xl flex items-center justify-center"
+                style={{
+                  width: '100%',
+                  height: '100%'
+                }}
+              >
+                <img src="/checked.png" alt="Upcoming" className="w-full h-full object-cover" />
+                
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  whileHover={{ opacity: 1, y: 0 }}
+                  className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[#1E1E1D] text-white px-4 py-2 shadow-lg rounded-[24px] whitespace-nowrap z-40 pointer-events-none"
+                >
+                  <span className="text-xs font-medium tracking-wide">View Product</span>
+                </motion.div>
+              </div>
+
+              <div className="mt-3 pointer-events-none hidden sm:block">
+                <h3 className="text-[14px] font-bold text-black">Upcoming</h3>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Fourth row, third column - The Social Fablab cell (next to Upcoming) */}
+          <div 
+            className="absolute bg-green-500 flex items-center justify-center" 
+            style={{
+              left: '640px',
+              top: '960px',
+              width: '320px',
+              height: '320px'
+            }}
+          >
+            {/* The Social Fablab Project inside this cell */}
+            <motion.div
+              drag={false}
+              whileHover={{
+                scale: 1.05,
+                zIndex: 50,
+                rotate: 30
+              }}
+              onTap={() => {
+                const clickTimeout = setTimeout(() => {
+                  navigate(`/project/8`);
+                }, 250);
+              }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              style={{
+                rotate: 30,
+                width: '178px',
+                height: '96px'
+              }}
+              className="cursor-pointer group"
+            >
+              <div
+                className="relative rounded-[16px] overflow-hidden bg-white shadow-lg transition-shadow duration-500 group-hover:shadow-2xl flex items-center justify-center"
+                style={{
+                  width: '100%',
+                  height: '100%'
+                }}
+              >
+                <img src="/fablab.jpg" alt="The Social Fablab" className="w-full h-full object-cover" />
+                
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  whileHover={{ opacity: 1, y: 0 }}
+                  className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[#1E1E1D] text-white px-4 py-2 shadow-lg rounded-[24px] whitespace-nowrap z-40 pointer-events-none"
+                >
+                  <span className="text-xs font-medium tracking-wide">View Product</span>
+                </motion.div>
+              </div>
+
+              <div className="mt-3 pointer-events-none hidden sm:block">
+                <h3 className="text-[14px] font-bold text-black">The Social Fablab</h3>
+                <p className="text-[12px] text-black text-left mt-1">Speculative & Brand Design</p>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Fourth row, fourth column - Diversa cell (next to Social Fablab) */}
+          <div 
+            className="absolute bg-green-600 flex items-center justify-center" 
+            style={{
+              left: '960px',
+              top: '960px',
+              width: '320px',
+              height: '320px'
+            }}
+          >
+            {/* Diversa Project inside this cell */}
+            <motion.div
+              drag={false}
+              whileHover={{
+                scale: 1.05,
+                zIndex: 50,
+                rotate: 30
+              }}
+              onTap={() => {
+                const clickTimeout = setTimeout(() => {
+                  navigate(`/project/9`);
+                }, 250);
+              }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              style={{
+                rotate: 30,
+                width: '160px',
+                height: '160px'
+              }}
+              className="cursor-pointer group"
+            >
+              <div
+                className="relative rounded-[16px] overflow-hidden bg-white shadow-lg transition-shadow duration-500 group-hover:shadow-2xl flex items-center justify-center"
+                style={{
+                  width: '100%',
+                  height: '100%'
+                }}
+              >
+                <img src="/checked.png" alt="Diversa" className="w-full h-full object-cover" />
+                
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  whileHover={{ opacity: 1, y: 0 }}
+                  className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[#1E1E1D] text-white px-4 py-2 shadow-lg rounded-[24px] whitespace-nowrap z-40 pointer-events-none"
+                >
+                  <span className="text-xs font-medium tracking-wide">View Product</span>
+                </motion.div>
+              </div>
+
+              <div className="mt-3 pointer-events-none hidden sm:block">
+                <h3 className="text-[14px] font-bold text-black">Diversa</h3>
+                <p className="text-[12px] text-black text-left mt-1">Strategy & Brand Design</p>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Third row, second column - id 11 cell (left of Lorem ipsum on desktop, right on mobile) */}
+          <div 
+            className="absolute flex items-center md:justify-center justify-start pl-6 md:pl-0" 
+            style={{
+              left: typeof window !== 'undefined' && window.innerWidth < 768 ? '640px' : '320px',
+              top: '640px',
+              width: '320px',
+              height: '320px'
+            }}
+          >
+            {/* id 11 Project inside this cell */}
+            <motion.div
+              drag={false}
+              whileHover={{
+                scale: 1.05,
+                zIndex: 50,
+                rotate: -30
+              }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              style={{
+                rotate: -30,
+                width: '96px',
+                height: '96px'
+              }}
+              className="group"
+            >
+              <div
+                className="relative rounded-[16px] overflow-hidden bg-white shadow-lg transition-shadow duration-500 flex items-center justify-center"
+                style={{
+                  width: '100%',
+                  height: '100%'
+                }}
+              >
+                <img src="/home.jpg" alt="Home" className="w-full h-full object-cover" />
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Third row, third column - Lorem ipsum text cell (right of id 11 on desktop, left on mobile) */}
+          <div 
+            className="absolute flex items-center md:justify-start justify-end md:pl-6 pr-6 md:pr-0" 
+            style={{
+              left: typeof window !== 'undefined' && window.innerWidth < 768 ? '320px' : '640px',
+              top: '640px',
+              width: '320px',
+              height: '320px'
+            }}
+          >
+            <p className="text-black text-[16px] leading-relaxed font-bold w-[147px] md:w-auto">
               Lorem ipsum dolor sit amet <br />consectetur adipiscing elit Ut et <br />massa mi. Aliquam in hendrerit <br />urna. Pellentesque sit amet
             </p>
           </div>
