@@ -798,9 +798,9 @@ const Hero = () => {
             </motion.div>
           </div>
 
-          {/* Third row, fifth column - Empty cell (to the right of ??? on mobile) */}
+          {/* Third row, fifth column - Empty cell (only visible on mobile, to the right of ???) */}
           <div
-            className="absolute bg-gray-50"
+            className="absolute bg-gray-50 md:hidden"
             style={{
               left: '1280px',
               top: '640px',
