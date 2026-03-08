@@ -43,8 +43,7 @@ const Hero = () => {
     x.set(centerOffset);
   }, []);
 
-  // State for the custom "View Reset" message visibility
-  const [showResetMessage, setShowResetMessage] = useState(false);
+
 
   // Animation states for About transition
   const [isExpandingAbout, setIsExpandingAbout] = useState(false);
@@ -102,12 +101,6 @@ const Hero = () => {
       duration: 0.5,
       ease: "easeInOut"
     });
-
-    // Show the custom centered "View Reset" message
-    setShowResetMessage(true);
-    setTimeout(() => {
-      setShowResetMessage(false);
-    }, 1500); // Message disappears after 1.5 seconds
   };
   const showToast = feature => {
     toast({
@@ -298,9 +291,19 @@ const Hero = () => {
           }}
           className="relative"
         >
-          {/* First grid cell with blue background */}
-          <div 
-            className="absolute bg-blue-100" 
+          {/* First row - Empty cells */}
+          <div
+            className="absolute bg-gray-50"
+            style={{
+              left: '-320px',
+              top: '0px',
+              width: '320px',
+              height: '320px'
+            }}
+          />
+
+          <div
+            className="absolute bg-blue-100"
             style={{
               left: '0px',
               top: '0px',
@@ -309,9 +312,70 @@ const Hero = () => {
             }}
           />
 
+          <div
+            className="absolute bg-gray-50"
+            style={{
+              left: '320px',
+              top: '0px',
+              width: '320px',
+              height: '320px'
+            }}
+          />
+
+          <div
+            className="absolute bg-gray-50"
+            style={{
+              left: '640px',
+              top: '0px',
+              width: '320px',
+              height: '320px'
+            }}
+          />
+
+          <div
+            className="absolute bg-gray-50"
+            style={{
+              left: '960px',
+              top: '0px',
+              width: '320px',
+              height: '320px'
+            }}
+          />
+
+          <div
+            className="absolute bg-gray-50"
+            style={{
+              left: '1280px',
+              top: '0px',
+              width: '320px',
+              height: '320px'
+            }}
+          />
+
+          <div
+            className="absolute bg-gray-50"
+            style={{
+              left: '1600px',
+              top: '0px',
+              width: '320px',
+              height: '320px'
+            }}
+          />
+
+          {/* Second row - Empty cell before Muso */}
+          <div
+            className="absolute bg-gray-50"
+            style={{
+              left: '-320px',
+              top: '320px',
+              width: '320px',
+              height: '320px'
+            }}
+          />
+
           {/* Second row, first column - Muso cell */}
-          <div 
-            className="absolute bg-blue-200 flex items-center justify-center" 
+          <div
+            className="absolute bg-blue-200 flex items-center justify-center"
             style={{
               left: '0px',
               top: '320px',
@@ -350,7 +414,7 @@ const Hero = () => {
                 }}
               >
                 <img src="/muso.jpg" alt="Muso" className="w-full h-full object-cover" />
-                
+
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   whileHover={{ opacity: 1, y: 0 }}
@@ -368,8 +432,8 @@ const Hero = () => {
           </div>
 
           {/* Second row, second column - ApCollective cell */}
-          <div 
-            className="absolute bg-blue-300 flex items-center justify-center" 
+          <div
+            className="absolute bg-blue-300 flex items-start md:items-center justify-center pt-6 md:pt-0"
             style={{
               left: '320px',
               top: '320px',
@@ -408,7 +472,7 @@ const Hero = () => {
                 }}
               >
                 <img src="/apcollective.png" alt="ApCollective" className="w-full h-full object-cover" />
-                
+
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   whileHover={{ opacity: 1, y: 0 }}
@@ -426,8 +490,8 @@ const Hero = () => {
           </div>
 
           {/* Second row, third column - Abaco cell */}
-          <div 
-            className="absolute bg-blue-400 flex items-center justify-center" 
+          <div
+            className="absolute bg-blue-400 flex items-start md:items-center justify-center pt-6 md:pt-0"
             style={{
               left: '640px',
               top: '320px',
@@ -466,7 +530,7 @@ const Hero = () => {
                 }}
               >
                 <img src="/abaco.jpg" alt="Abaco" className="w-full h-full object-cover" />
-                
+
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   whileHover={{ opacity: 1, y: 0 }}
@@ -484,8 +548,8 @@ const Hero = () => {
           </div>
 
           {/* Second row, fourth column - Albed Price Book cell */}
-          <div 
-            className="absolute bg-blue-500 flex items-center justify-center" 
+          <div
+            className="absolute bg-blue-500 flex items-center justify-center"
             style={{
               left: '960px',
               top: '320px',
@@ -499,13 +563,13 @@ const Hero = () => {
               whileHover={{
                 scale: 1.05,
                 zIndex: 50,
-                rotate: 30
+                rotate: 15
               }}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8 }}
               style={{
-                rotate: 30,
+                rotate: 15,
                 width: '270px',
                 height: '270px'
               }}
@@ -528,11 +592,44 @@ const Hero = () => {
             </motion.div>
           </div>
 
-          {/* Third row, column -1 - Empathy Design cell (shifted left) */}
-          <div 
-            className="absolute bg-green-200 flex items-center justify-center" 
+          {/* Second row, fifth column - Empty cell */}
+          <div
+            className="absolute bg-gray-50"
             style={{
-              left: '-320px',
+              left: '1280px',
+              top: '320px',
+              width: '320px',
+              height: '320px'
+            }}
+          />
+
+          {/* Second row, sixth column - Empty cell */}
+          <div
+            className="absolute bg-gray-50"
+            style={{
+              left: '1600px',
+              top: '320px',
+              width: '320px',
+              height: '320px'
+            }}
+          />
+
+          {/* Third row, first column - Empty cell */}
+          <div
+            className="absolute bg-gray-50"
+            style={{
+              left: '0px',
+              top: '640px',
+              width: '320px',
+              height: '320px'
+            }}
+          />
+
+          {/* Third row, column -1 - Empathy Design cell (shifted left on desktop, first column on mobile) */}
+          <div
+            className="absolute bg-green-200 flex items-center justify-center"
+            style={{
+              left: typeof window !== 'undefined' && window.innerWidth < 768 ? '0px' : '-320px',
               top: '640px',
               width: '320px',
               height: '320px'
@@ -569,7 +666,7 @@ const Hero = () => {
                 }}
               >
                 <img src="/checked.png" alt="Empathy Design" className="w-full h-full object-cover" />
-                
+
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   whileHover={{ opacity: 1, y: 0 }}
@@ -586,12 +683,12 @@ const Hero = () => {
             </motion.div>
           </div>
 
-          {/* Third row, fourth column - Grillwise cell (below Albed) */}
-          <div 
-            className="absolute bg-purple-200 flex items-center justify-center" 
+          {/* Third row, fourth column - Grillwise cell (below Albed on desktop, below id 11 on mobile) */}
+          <div
+            className="absolute bg-purple-200 flex items-end md:items-center justify-center pb-6 md:pb-0"
             style={{
-              left: '960px',
-              top: '640px',
+              left: typeof window !== 'undefined' && window.innerWidth < 768 ? '640px' : '960px',
+              top: typeof window !== 'undefined' && window.innerWidth < 768 ? '740px' : '640px',
               width: '320px',
               height: '320px'
             }}
@@ -602,7 +699,7 @@ const Hero = () => {
               whileHover={{
                 scale: 1.05,
                 zIndex: 50,
-                rotate: 30
+                rotate: 15
               }}
               onTap={() => {
                 const clickTimeout = setTimeout(() => {
@@ -613,7 +710,7 @@ const Hero = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8 }}
               style={{
-                rotate: 30,
+                rotate: 15,
                 width: '288px',
                 height: '160px'
               }}
@@ -627,7 +724,7 @@ const Hero = () => {
                 }}
               >
                 <img src="/grillwise.jpg" alt="Grillwise" className="w-full h-full object-cover" />
-                
+
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   whileHover={{ opacity: 1, y: 0 }}
@@ -644,11 +741,11 @@ const Hero = () => {
             </motion.div>
           </div>
 
-          {/* Third row, fifth column - ??? cell (beside Grillwise) */}
-          <div 
-            className="absolute bg-purple-300 flex items-center justify-center" 
+          {/* Third row, fifth column - ??? cell (beside Grillwise on desktop, moves left on mobile) */}
+          <div
+            className="absolute bg-purple-300 flex items-center justify-center"
             style={{
-              left: '1280px',
+              left: typeof window !== 'undefined' && window.innerWidth < 768 ? '960px' : '1280px',
               top: '640px',
               width: '320px',
               height: '320px'
@@ -685,7 +782,7 @@ const Hero = () => {
                 }}
               >
                 <img src="/checked.png" alt="????" className="w-full h-full object-cover" />
-                
+
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   whileHover={{ opacity: 1, y: 0 }}
@@ -701,9 +798,40 @@ const Hero = () => {
             </motion.div>
           </div>
 
-          {/* Fourth row, first column - Syform cell (below Empathy Design) */}
-          <div 
-            className="absolute bg-green-300 flex items-center justify-center" 
+          {/* Third row, fifth column - Empty cell (to the right of ??? on mobile) */}
+          <div
+            className="absolute bg-gray-50"
+            style={{
+              left: '1280px',
+              top: '640px',
+              width: '320px',
+              height: '320px'
+            }}
+          />
+
+          {/* Third row, sixth column - Empty cell */}
+          <div
+            className="absolute bg-gray-50"
+            style={{
+              left: '1600px',
+              top: '640px',
+              width: '320px',
+              height: '320px'
+            }}
+          />
+
+          {/* Fourth row, -1 column - Empty cell */}
+          <div
+            className="absolute bg-gray-50"
+            style={{
+              left: '-320px',
+              top: '960px',
+              width: '320px',
+              height: '320px'
+            }}
+          />
+          <div
+            className="absolute bg-green-300 flex items-center justify-center"
             style={{
               left: '0px',
               top: '960px',
@@ -742,7 +870,7 @@ const Hero = () => {
                 }}
               >
                 <img src="/checked.png" alt="Syform" className="w-full h-full object-cover" />
-                
+
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   whileHover={{ opacity: 1, y: 0 }}
@@ -760,8 +888,8 @@ const Hero = () => {
           </div>
 
           {/* Fourth row, second column - Upcoming cell (to the right of Syform) */}
-          <div 
-            className="absolute bg-green-400 flex items-center justify-center" 
+          <div
+            className="absolute bg-green-400 flex items-end md:items-center justify-center pb-6 md:pb-0"
             style={{
               left: '320px',
               top: '960px',
@@ -800,7 +928,7 @@ const Hero = () => {
                 }}
               >
                 <img src="/checked.png" alt="Upcoming" className="w-full h-full object-cover" />
-                
+
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   whileHover={{ opacity: 1, y: 0 }}
@@ -817,8 +945,8 @@ const Hero = () => {
           </div>
 
           {/* Fourth row, third column - The Social Fablab cell (next to Upcoming) */}
-          <div 
-            className="absolute bg-green-500 flex items-center justify-center" 
+          <div
+            className="absolute  flex items-end md:items-center justify-center pb-6 md:pb-0"
             style={{
               left: '640px',
               top: '960px',
@@ -832,7 +960,7 @@ const Hero = () => {
               whileHover={{
                 scale: 1.05,
                 zIndex: 50,
-                rotate: 30
+                rotate: 15
               }}
               onTap={() => {
                 const clickTimeout = setTimeout(() => {
@@ -843,7 +971,7 @@ const Hero = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8 }}
               style={{
-                rotate: 30,
+                rotate: 15,
                 width: '178px',
                 height: '96px'
               }}
@@ -857,7 +985,7 @@ const Hero = () => {
                 }}
               >
                 <img src="/fablab.jpg" alt="The Social Fablab" className="w-full h-full object-cover" />
-                
+
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   whileHover={{ opacity: 1, y: 0 }}
@@ -875,8 +1003,8 @@ const Hero = () => {
           </div>
 
           {/* Fourth row, fourth column - Diversa cell (next to Social Fablab) */}
-          <div 
-            className="absolute bg-green-600 flex items-center justify-center" 
+          <div
+            className="absolute bg-green-600 flex items-center justify-center"
             style={{
               left: '960px',
               top: '960px',
@@ -915,7 +1043,7 @@ const Hero = () => {
                 }}
               >
                 <img src="/checked.png" alt="Diversa" className="w-full h-full object-cover" />
-                
+
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   whileHover={{ opacity: 1, y: 0 }}
@@ -932,14 +1060,105 @@ const Hero = () => {
             </motion.div>
           </div>
 
-          {/* Third row, second column - id 11 cell (left of Lorem ipsum on desktop, right on mobile) */}
-          <div 
-            className="absolute flex items-center md:justify-center justify-start pl-6 md:pl-0" 
+          {/* Fourth row, fifth column - Empty cell */}
+          <div
+            className="absolute bg-gray-50"
+            style={{
+              left: '1280px',
+              top: '960px',
+              width: '320px',
+              height: '320px'
+            }}
+          />
+
+          {/* Fourth row, sixth column - Empty cell */}
+          <div
+            className="absolute bg-gray-50"
+            style={{
+              left: '1600px',
+              top: '960px',
+              width: '320px',
+              height: '320px'
+            }}
+          />
+
+          {/* Fifth row - Empty cells */}
+          <div
+            className="absolute bg-gray-50"
+            style={{
+              left: '-320px',
+              top: '1280px',
+              width: '320px',
+              height: '320px'
+            }}
+          />
+
+          <div
+            className="absolute bg-gray-50"
+            style={{
+              left: '0px',
+              top: '1280px',
+              width: '320px',
+              height: '320px'
+            }}
+          />
+
+          <div
+            className="absolute bg-gray-50"
+            style={{
+              left: '320px',
+              top: '1280px',
+              width: '320px',
+              height: '320px'
+            }}
+          />
+
+          <div
+            className="absolute bg-gray-50"
+            style={{
+              left: '640px',
+              top: '1280px',
+              width: '320px',
+              height: '320px'
+            }}
+          />
+
+          <div
+            className="absolute bg-gray-50"
+            style={{
+              left: '960px',
+              top: '1280px',
+              width: '320px',
+              height: '320px'
+            }}
+          />
+
+          <div
+            className="absolute bg-gray-50"
+            style={{
+              left: '1280px',
+              top: '1280px',
+              width: '320px',
+              height: '320px'
+            }}
+          />
+
+          <div
+            className="absolute bg-gray-50"
+            style={{
+              left: '1600px',
+              top: '1280px',
+              width: '320px',
+              height: '320px'
+            }}
+          />
+          <div
+            className="absolute flex items-start md:items-center justify-start md:justify-center pl-6 md:pl-0 pt-6 md:pt-0"
             style={{
               left: typeof window !== 'undefined' && window.innerWidth < 768 ? '640px' : '320px',
               top: '640px',
               width: '320px',
-              height: '320px'
+              height: typeof window !== 'undefined' && window.innerWidth < 768 ? '100px' : '320px'
             }}
           >
             {/* id 11 Project inside this cell */}
@@ -948,15 +1167,15 @@ const Hero = () => {
               whileHover={{
                 scale: 1.05,
                 zIndex: 50,
-                rotate: -30
+                rotate: -15
               }}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8 }}
               style={{
-                rotate: -30,
-                width: '96px',
-                height: '96px'
+                rotate: -15,
+                width: typeof window !== 'undefined' && window.innerWidth < 768 ? '96px' : '140px',
+                height: typeof window !== 'undefined' && window.innerWidth < 768 ? '96px' : '140px'
               }}
               className="group"
             >
@@ -973,16 +1192,16 @@ const Hero = () => {
           </div>
 
           {/* Third row, third column - Lorem ipsum text cell (right of id 11 on desktop, left on mobile) */}
-          <div 
-            className="absolute flex items-center md:justify-start justify-end md:pl-6 pr-6 md:pr-0" 
+          <div
+            className="absolute flex items-start md:items-center justify-end md:justify-start pr-6 md:pr-0 md:pl-6 md:pt-0"
             style={{
               left: typeof window !== 'undefined' && window.innerWidth < 768 ? '320px' : '640px',
               top: '640px',
               width: '320px',
-              height: '320px'
+              height: typeof window !== 'undefined' && window.innerWidth < 768 ? '420px' : '320px'
             }}
           >
-            <p className="text-black text-[16px] leading-relaxed font-bold w-[147px] md:w-auto">
+            <p className="text-black text-[21px] md:text-[18px] leading-relaxed font-bold w-[147px] md:w-auto">
               Lorem ipsum dolor sit amet <br />consectetur adipiscing elit Ut et <br />massa mi. Aliquam in hendrerit <br />urna. Pellentesque sit amet
             </p>
           </div>
@@ -1063,17 +1282,17 @@ const Hero = () => {
       <div className="absolute bottom-8 left-0 right-0 px-6 md:px-12 flex items-end justify-between pointer-events-none z-50">
 
         <div className="flex items-center justify-center gap-3 pointer-events-auto w-full md:w-auto">
-  <motion.button
-    ref={aboutButtonRef}
-    whileHover={{ y: -2 }}
-    onClick={handleAboutClick}
-    className="h-[52px] w-full md:w-auto flex items-center justify-center bg-[#1E1E1D] text-white px-6 rounded-xl shadow-lg hover:bg-black transition-colors gap-2"
-  >
-    {/* Replaced standard Info icon with custom Hexagon Info */}
-    <HexagonInfoIcon className="w-5 h-5 flex-shrink-0" />
-    <span className="text-sm font-medium">About</span>
-  </motion.button>
-</div>
+          <motion.button
+            ref={aboutButtonRef}
+            whileHover={{ y: -2 }}
+            onClick={handleAboutClick}
+            className="h-[52px] w-full md:w-auto flex items-center justify-center bg-[#1E1E1D] text-white px-6 rounded-xl shadow-lg hover:bg-black transition-colors gap-2"
+          >
+            {/* Replaced standard Info icon with custom Hexagon Info */}
+            <HexagonInfoIcon className="w-5 h-5 flex-shrink-0" />
+            <span className="text-sm font-medium">About</span>
+          </motion.button>
+        </div>
 
         {/* Info Section with white background - Bottom right */}
         <div className="sm:flex hidden items-center gap-6 bg-white text-black rounded-[16px] px-6 py-3 shadow-lg pointer-events-auto">
@@ -1093,24 +1312,6 @@ const Hero = () => {
           </div>
         </div>
       </div>
-
-      {/* Custom Centered "View Reset" Message */}
-      <AnimatePresence>
-        {showResetMessage && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 flex items-center justify-center pointer-events-none z-[100]"
-          >
-            <div className="bg-white text-[#1E1E1D] px-6 py-3 rounded-xl shadow-lg text-lg font-medium text-center">
-              <div>Back to the projects</div>
-              <h3 className="text-sm font-light text-gray-500 mt-1">Hope you'll find the one you're looking for</h3>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
     </motion.section>
   );
