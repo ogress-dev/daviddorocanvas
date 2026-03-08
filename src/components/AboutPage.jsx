@@ -41,7 +41,7 @@ const AboutPage = () => {
       </div>
 
       {/* Bottom Back Button */}
-      <div className="absolute bottom-0 left-0 right-0 px-6 md:px-12 pb-8">
+      <div className="absolute bottom-0 left-0 right-0 px-6 md:px-12 pb-20 md:pb-8">
         <motion.button
           onClick={() => navigate('/')}
           className="w-full h-[52px] flex items-center hover:bg-white justify-center gap-3 bg-transparent text-white border-2 border-white rounded-xl transition-colors duration-300 group"

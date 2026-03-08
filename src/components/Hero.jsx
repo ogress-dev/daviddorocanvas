@@ -1279,7 +1279,7 @@ const Hero = () => {
       </motion.div>
 
       {/* Bottom Controls Bar */}
-      <div className="absolute bottom-8 left-0 right-0 px-6 md:px-12 flex items-end justify-between pointer-events-none z-50">
+      <div className="absolute bottom-20 md:bottom-8 left-0 right-0 px-6 md:px-12 flex items-end justify-between pointer-events-none z-50">
 
         <div className="flex items-center justify-center gap-3 pointer-events-auto w-full md:w-auto">
           <motion.button
