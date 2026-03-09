@@ -293,7 +293,7 @@ const Hero = () => {
         >
           {/* First row - Empty cells */}
           <div
-            className="absolute bg-gray-50"
+            className="absolute"
             style={{
               left: '-320px',
               top: '0px',
@@ -303,7 +303,7 @@ const Hero = () => {
           />
 
           <div
-            className="absolute bg-blue-100"
+            className="absolute"
             style={{
               left: '0px',
               top: '0px',
@@ -313,7 +313,7 @@ const Hero = () => {
           />
 
           <div
-            className="absolute bg-gray-50"
+            className="absolute"
             style={{
               left: '320px',
               top: '0px',
@@ -323,7 +323,7 @@ const Hero = () => {
           />
 
           <div
-            className="absolute bg-gray-50"
+            className="absolute"
             style={{
               left: '640px',
               top: '0px',
@@ -333,7 +333,7 @@ const Hero = () => {
           />
 
           <div
-            className="absolute bg-gray-50"
+            className="absolute"
             style={{
               left: '960px',
               top: '0px',
@@ -343,7 +343,7 @@ const Hero = () => {
           />
 
           <div
-            className="absolute bg-gray-50"
+            className="absolute"
             style={{
               left: '1280px',
               top: '0px',
@@ -353,7 +353,7 @@ const Hero = () => {
           />
 
           <div
-            className="absolute bg-gray-50"
+            className="absolute"
             style={{
               left: '1600px',
               top: '0px',
@@ -364,7 +364,7 @@ const Hero = () => {
 
           {/* Second row - Empty cell before Muso */}
           <div
-            className="absolute bg-gray-50"
+            className="absolute"
             style={{
               left: '-320px',
               top: '320px',
@@ -375,7 +375,7 @@ const Hero = () => {
 
           {/* Second row, first column - Muso cell */}
           <div
-            className="absolute bg-blue-200 flex items-center justify-center"
+            className="absolute flex items-center justify-center"
             style={{
               left: '0px',
               top: '320px',
@@ -433,7 +433,7 @@ const Hero = () => {
 
           {/* Second row, second column - ApCollective cell */}
           <div
-            className="absolute bg-blue-300 flex items-start md:items-center justify-center pt-6 md:pt-0"
+            className="absolute flex items-start md:items-center justify-center pt-6 md:pt-0"
             style={{
               left: '320px',
               top: '320px',
@@ -491,7 +491,7 @@ const Hero = () => {
 
           {/* Second row, third column - Abaco cell */}
           <div
-            className="absolute bg-blue-400 flex items-start md:items-center justify-center pt-6 md:pt-0"
+            className="absolute flex items-start md:items-center justify-center pt-6 md:pt-0"
             style={{
               left: '640px',
               top: '320px',
@@ -549,7 +549,7 @@ const Hero = () => {
 
           {/* Second row, fourth column - Albed Price Book cell */}
           <div
-            className="absolute bg-blue-500 flex items-center justify-center"
+            className="absolute flex items-center justify-center"
             style={{
               left: '960px',
               top: '320px',
@@ -594,7 +594,7 @@ const Hero = () => {
 
           {/* Second row, fifth column - Empty cell */}
           <div
-            className="absolute bg-gray-50"
+            className="absolute"
             style={{
               left: '1280px',
               top: '320px',
@@ -605,7 +605,7 @@ const Hero = () => {
 
           {/* Second row, sixth column - Empty cell */}
           <div
-            className="absolute bg-gray-50"
+            className="absolute"
             style={{
               left: '1600px',
               top: '320px',
@@ -616,7 +616,7 @@ const Hero = () => {
 
           {/* Third row, first column - Empty cell */}
           <div
-            className="absolute bg-gray-50"
+            className="absolute"
             style={{
               left: '0px',
               top: '640px',
@@ -627,7 +627,7 @@ const Hero = () => {
 
           {/* Third row, column -1 - Empathy Design cell (shifted left on desktop, first column on mobile) */}
           <div
-            className="absolute bg-green-200 flex items-center justify-center"
+            className="absolute flex items-center justify-center"
             style={{
               left: typeof window !== 'undefined' && window.innerWidth < 768 ? '0px' : '-320px',
               top: '640px',
@@ -685,7 +685,7 @@ const Hero = () => {
 
           {/* Third row, fourth column - Grillwise cell (below Albed on desktop, below id 11 on mobile) */}
           <div
-            className="absolute bg-purple-200 flex items-end md:items-center justify-center pb-6 md:pb-0"
+            className="absolute flex items-end md:items-center justify-center pb-6 md:pb-0"
             style={{
               left: typeof window !== 'undefined' && window.innerWidth < 768 ? '640px' : '960px',
               top: typeof window !== 'undefined' && window.innerWidth < 768 ? '740px' : '640px',
@@ -743,7 +743,7 @@ const Hero = () => {
 
           {/* Third row, fifth column - ??? cell (beside Grillwise on desktop, moves left on mobile) */}
           <div
-            className="absolute bg-purple-300 flex items-center justify-center"
+            className="absolute flex items-center justify-center"
             style={{
               left: typeof window !== 'undefined' && window.innerWidth < 768 ? '960px' : '1280px',
               top: '640px',
@@ -800,7 +800,7 @@ const Hero = () => {
 
           {/* Third row, fifth column - Empty cell (only visible on mobile, to the right of ???) */}
           <div
-            className="absolute bg-gray-50 md:hidden"
+            className="absolute md:hidden"
             style={{
               left: '1280px',
               top: '640px',
@@ -811,7 +811,7 @@ const Hero = () => {
 
           {/* Third row, sixth column - Empty cell */}
           <div
-            className="absolute bg-gray-50"
+            className="absolute"
             style={{
               left: '1600px',
               top: '640px',
@@ -822,7 +822,7 @@ const Hero = () => {
 
           {/* Fourth row, -1 column - Empty cell */}
           <div
-            className="absolute bg-gray-50"
+            className="absolute"
             style={{
               left: '-320px',
               top: '960px',
@@ -831,7 +831,7 @@ const Hero = () => {
             }}
           />
           <div
-            className="absolute bg-green-300 flex items-center justify-center"
+            className="absolute flex items-center justify-center"
             style={{
               left: '0px',
               top: '960px',
@@ -889,7 +889,7 @@ const Hero = () => {
 
           {/* Fourth row, second column - Upcoming cell (to the right of Syform) */}
           <div
-            className="absolute bg-green-400 flex items-end md:items-center justify-center pb-6 md:pb-0"
+            className="absolute flex items-end md:items-center justify-center pb-6 md:pb-0"
             style={{
               left: '320px',
               top: '960px',
@@ -1004,7 +1004,7 @@ const Hero = () => {
 
           {/* Fourth row, fourth column - Diversa cell (next to Social Fablab) */}
           <div
-            className="absolute bg-green-600 flex items-center justify-center"
+            className="absolute flex items-center justify-center"
             style={{
               left: '960px',
               top: '960px',
@@ -1062,7 +1062,7 @@ const Hero = () => {
 
           {/* Fourth row, fifth column - Empty cell */}
           <div
-            className="absolute bg-gray-50"
+            className="absolute"
             style={{
               left: '1280px',
               top: '960px',
@@ -1073,7 +1073,7 @@ const Hero = () => {
 
           {/* Fourth row, sixth column - Empty cell */}
           <div
-            className="absolute bg-gray-50"
+            className="absolute"
             style={{
               left: '1600px',
               top: '960px',
@@ -1084,7 +1084,7 @@ const Hero = () => {
 
           {/* Fifth row - Empty cells */}
           <div
-            className="absolute bg-gray-50"
+            className="absolute"
             style={{
               left: '-320px',
               top: '1280px',
@@ -1094,7 +1094,7 @@ const Hero = () => {
           />
 
           <div
-            className="absolute bg-gray-50"
+            className="absolute"
             style={{
               left: '0px',
               top: '1280px',
@@ -1104,7 +1104,7 @@ const Hero = () => {
           />
 
           <div
-            className="absolute bg-gray-50"
+            className="absolute"
             style={{
               left: '320px',
               top: '1280px',
@@ -1114,7 +1114,7 @@ const Hero = () => {
           />
 
           <div
-            className="absolute bg-gray-50"
+            className="absolute"
             style={{
               left: '640px',
               top: '1280px',
@@ -1124,7 +1124,7 @@ const Hero = () => {
           />
 
           <div
-            className="absolute bg-gray-50"
+            className="absolute"
             style={{
               left: '960px',
               top: '1280px',
@@ -1134,7 +1134,7 @@ const Hero = () => {
           />
 
           <div
-            className="absolute bg-gray-50"
+            className="absolute"
             style={{
               left: '1280px',
               top: '1280px',
@@ -1144,7 +1144,7 @@ const Hero = () => {
           />
 
           <div
-            className="absolute bg-gray-50"
+            className="absolute"
             style={{
               left: '1600px',
               top: '1280px',
