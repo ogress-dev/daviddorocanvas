@@ -3,7 +3,6 @@ import { motion, useMotionValue, animate } from 'framer-motion';
 import { Move } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Logo from '@/components/Logo';
-
 const HexagonInfoIcon = ({ className }) => (
   <svg
     viewBox="0 0 24 24"
@@ -19,25 +18,19 @@ const HexagonInfoIcon = ({ className }) => (
     <line x1="12" y1="8" x2="12.01" y2="8" />
   </svg>
 );
-
 const Hero = () => {
   const navigate = useNavigate();
   const containerRef = useRef(null);
   const aboutButtonRef = useRef(null);
-
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-
   useEffect(() => {
     const centerOffset = (window.innerWidth / 2) - 800;
     x.set(centerOffset);
   }, []);
-
   const [isExpandingAbout, setIsExpandingAbout] = useState(false);
   const [aboutButtonRect, setAboutButtonRect] = useState(null);
-
   const lastTap = useRef(0);
-
   const handleAboutClick = () => {
     if (aboutButtonRef.current) {
       const rect = aboutButtonRef.current.getBoundingClientRect();
@@ -48,7 +41,6 @@ const Hero = () => {
         height: rect.height
       });
       setIsExpandingAbout(true);
-
       setTimeout(() => {
         navigate('/about');
       }, 600);
@@ -56,7 +48,6 @@ const Hero = () => {
       navigate('/about');
     }
   };
-
   const handleResetView = () => {
     animate(x, 0, {
       duration: 0.5,
@@ -67,30 +58,22 @@ const Hero = () => {
       ease: "easeInOut"
     });
   };
-
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
-
     const canvasWidth = 2240;
     const canvasHeight = 1603;
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
-
     const horizontalBoundaryFactor = 3.5;
     const verticalBoundaryFactor = 0.8;
-
     const maxScrollX = Math.max(1000, Math.abs(canvasWidth - viewportWidth) * horizontalBoundaryFactor);
     const maxScrollY = Math.max(300, Math.abs(canvasHeight - viewportHeight) * verticalBoundaryFactor);
-
     const onWheel = e => {
       e.preventDefault();
-
       const currentX = x.get();
       const currentY = y.get();
-
       const scrollSpeed = 1.5;
-
       if (e.shiftKey) {
         const newX = currentX - e.deltaY * scrollSpeed;
         const clampedX = Math.max(-maxScrollX, Math.min(maxScrollX, newX));
@@ -99,7 +82,6 @@ const Hero = () => {
         const newY = currentY - e.deltaY * scrollSpeed;
         const clampedY = Math.max(-maxScrollY, Math.min(maxScrollY, newY));
         y.set(clampedY);
-
         if (e.deltaX !== 0) {
           const newX = currentX - e.deltaX * scrollSpeed;
           const clampedX = Math.max(-maxScrollX, Math.min(maxScrollX, newX));
@@ -112,7 +94,6 @@ const Hero = () => {
     });
     return () => container.removeEventListener('wheel', onWheel);
   }, [x, y]);
-
   const handleTouchStart = e => {
     if (e.touches.length === 1) {
       const now = Date.now();
@@ -122,7 +103,6 @@ const Hero = () => {
       lastTap.current = now;
     }
   };
-
   return (
     <motion.section
       initial={{ opacity: 0 }}
@@ -130,7 +110,6 @@ const Hero = () => {
       exit={isExpandingAbout ? { opacity: 1 } : { opacity: 0, scale: 0.95, transition: { duration: 0.4 } }}
       className="relative w-screen h-screen overflow-hidden bg-[#FFFFFF]"
     >
-
       {isExpandingAbout && aboutButtonRect && (
         <motion.div
           initial={{
@@ -156,18 +135,15 @@ const Hero = () => {
           }}
         />
       )}
-
       <div className="absolute top-0 left-0 right-0 z-50 px-6 md:px-12 pt-6 md:pt-8 flex justify-between items-start pointer-events-none">
         <div className="pointer-events-auto cursor-pointer">
           <Logo />
         </div>
-
         <div className="flex items-center gap-2 text-[#888] select-none pointer-events-auto hidden sm:flex">
           <Move className="w-4 h-4" />
           <span className="text-sm font-light tracking-wide">Drag to explore</span>
         </div>
       </div>
-
       <motion.div
         ref={containerRef}
         className="w-full h-full cursor-grab active:cursor-grabbing flex items-center justify-center"
@@ -211,7 +187,6 @@ const Hero = () => {
           >
             <span className="text-white text-4xl font-bold absolute top-4 left-4">20</span>
           </div>
-
           <div
             className="absolute flex items-center justify-center"
             style={{
@@ -225,7 +200,6 @@ const Hero = () => {
           >
             <span className="text-white text-4xl font-bold absolute top-4 left-4">19</span>
           </div>
-
           <div
             className="absolute flex items-center justify-center"
             style={{
@@ -239,7 +213,6 @@ const Hero = () => {
           >
             <span className="text-white text-4xl font-bold absolute top-4 left-4">18</span>
           </div>
-
           <div
             className="absolute flex items-center justify-center"
             style={{
@@ -253,7 +226,6 @@ const Hero = () => {
           >
             <span className="text-black text-4xl font-bold absolute top-4 left-4">17</span>
           </div>
-
           <div
             className="absolute flex items-center justify-center"
             style={{
@@ -267,7 +239,6 @@ const Hero = () => {
           >
             <span className="text-black text-4xl font-bold absolute top-4 left-4">16</span>
           </div>
-
           <div
             className="absolute flex items-center justify-center"
             style={{
@@ -281,7 +252,6 @@ const Hero = () => {
           >
             <span className="text-black text-4xl font-bold absolute top-4 left-4">15</span>
           </div>
-
           <div
             className="absolute flex items-center justify-center"
             style={{
@@ -293,9 +263,8 @@ const Hero = () => {
               zIndex: 100
             }}
           >
-            <span className="text-black text-4xl font-bold absolute top-4 left-4">34</span>
+            <span className="text-white text-4xl font-bold absolute top-4 left-4">34</span>
           </div>
-
           <div
             className="absolute flex items-center justify-center"
             style={{
@@ -309,7 +278,6 @@ const Hero = () => {
           >
             <span className="text-white text-4xl font-bold absolute top-4 left-4">21</span>
           </div>
-
           <div
             className="absolute flex items-center justify-center"
             style={{
@@ -351,7 +319,6 @@ const Hero = () => {
                 }}
               >
                 <img src="/muso.jpg" alt="Muso" className="w-full h-full object-cover" />
-
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   whileHover={{ opacity: 1, y: 0 }}
@@ -360,14 +327,12 @@ const Hero = () => {
                   <span className="text-xs font-medium tracking-wide">View Product</span>
                 </motion.div>
               </div>
-
               <div className="mt-3 pointer-events-none hidden sm:block">
                 <h3 className="text-[14px] font-bold text-black">Muso</h3>
                 <p className="text-[12px] text-black text-left mt-1">Brand, Strategy, Web & Product Design</p>
               </div>
             </motion.div>
           </div>
-
           <div
             className="absolute flex items-start md:items-center justify-center pt-6 md:pt-0"
             style={{
@@ -409,7 +374,6 @@ const Hero = () => {
                 }}
               >
                 <img src="/apcollective.png" alt="ApCollective" className="w-full h-full object-cover" />
-
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   whileHover={{ opacity: 1, y: 0 }}
@@ -418,14 +382,12 @@ const Hero = () => {
                   <span className="text-xs font-medium tracking-wide">View Product</span>
                 </motion.div>
               </div>
-
               <div className="mt-3 pointer-events-none hidden sm:block">
                 <h3 className="text-[14px] font-bold text-black">ApCollective</h3>
                 <p className="text-[12px] text-black text-left mt-1">Portfolio</p>
               </div>
             </motion.div>
           </div>
-
           <div
             className="absolute flex items-start md:items-center justify-center pt-6 md:pt-0"
             style={{
@@ -467,7 +429,6 @@ const Hero = () => {
                 }}
               >
                 <img src="/abaco.jpg" alt="Abaco" className="w-full h-full object-cover" />
-
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   whileHover={{ opacity: 1, y: 0 }}
@@ -476,14 +437,12 @@ const Hero = () => {
                   <span className="text-xs font-medium tracking-wide">View Product</span>
                 </motion.div>
               </div>
-
               <div className="mt-3 pointer-events-none hidden sm:block">
                 <h3 className="text-[14px] font-bold text-black">Abaco</h3>
                 <p className="text-[12px] text-black text-left mt-1">Product Design</p>
               </div>
             </motion.div>
           </div>
-
           <div
             className="absolute flex items-start md:items-center justify-center pt-6 md:pt-0"
             style={{
@@ -521,14 +480,12 @@ const Hero = () => {
               >
                 <img src="/albed.jpg" alt="Albed Price Book" className="w-full h-full object-cover" />
               </div>
-
               <div className="mt-3 pointer-events-none hidden sm:block">
                 <h3 className="text-[14px] font-bold text-black">Albed Price Book</h3>
                 <p className="text-[12px] text-black text-left mt-1">Strategy & Editorial Design</p>
               </div>
             </motion.div>
           </div>
-
           <div
             className="absolute flex items-center justify-center"
             style={{
@@ -542,7 +499,6 @@ const Hero = () => {
           >
             <span className="text-white text-4xl font-bold absolute top-4 left-4">14</span>
           </div>
-
           <div
             className="absolute flex items-center justify-center"
             style={{
@@ -556,7 +512,6 @@ const Hero = () => {
           >
             <span className="text-white text-4xl font-bold absolute top-4 left-4">33</span>
           </div>
-
           <div
             className="absolute flex items-center justify-center"
             style={{
@@ -570,7 +525,6 @@ const Hero = () => {
           >
             <span className="text-black text-4xl font-bold absolute top-4 left-4">22</span>
           </div>
-
           <div
             className="absolute flex items-center justify-center"
             style={{
@@ -613,7 +567,6 @@ const Hero = () => {
                 }}
               >
                 <img src="/checked.png" alt="Empathy Design" className="w-full h-full object-cover" />
-
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   whileHover={{ opacity: 1, y: 0 }}
@@ -622,14 +575,12 @@ const Hero = () => {
                   <span className="text-xs font-medium tracking-wide">View Product</span>
                 </motion.div>
               </div>
-
               <div className="mt-3 pointer-events-none hidden sm:block">
                 <h3 className="text-[14px] font-bold text-black">Empathy Design</h3>
                 <p className="text-[12px] text-black text-left mt-1">Logo & Set Design</p>
               </div>
             </motion.div>
           </div>
-
           <div
             className="absolute flex items-end md:items-center justify-center pb-6 md:pb-0"
             style={{
@@ -672,7 +623,6 @@ const Hero = () => {
                 }}
               >
                 <img src="/grillwise.jpg" alt="Grillwise" className="w-full h-full object-cover" />
-
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   whileHover={{ opacity: 1, y: 0 }}
@@ -681,14 +631,12 @@ const Hero = () => {
                   <span className="text-xs font-medium tracking-wide">View Product</span>
                 </motion.div>
               </div>
-
               <div className="mt-3 pointer-events-none hidden sm:block">
                 <h3 className="text-[14px] font-bold text-black">Grillwise</h3>
                 <p className="text-[12px] text-black text-left mt-1">Brand & Web Design</p>
               </div>
             </motion.div>
           </div>
-
           <div
             className="absolute flex items-center justify-center"
             style={{
@@ -731,7 +679,6 @@ const Hero = () => {
                 }}
               >
                 <img src="/checked.png" alt="????" className="w-full h-full object-cover" />
-
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   whileHover={{ opacity: 1, y: 0 }}
@@ -740,13 +687,11 @@ const Hero = () => {
                   <span className="text-xs font-medium tracking-wide">View Product</span>
                 </motion.div>
               </div>
-
               <div className="mt-3 pointer-events-none hidden sm:block">
                 <h3 className="text-[14px] font-bold text-black">????</h3>
               </div>
             </motion.div>
           </div>
-
           <div
             className="absolute md:hidden"
             style={{
@@ -757,7 +702,6 @@ const Hero = () => {
               backgroundColor: '#fca5a5'
             }}
           />
-
           <div
             className="absolute flex items-center justify-center"
             style={{
@@ -771,7 +715,6 @@ const Hero = () => {
           >
             <span className="text-white text-4xl font-bold absolute top-4 left-4">13</span>
           </div>
-
           <div
             className="absolute flex items-center justify-center"
             style={{
@@ -785,7 +728,6 @@ const Hero = () => {
           >
             <span className="text-white text-4xl font-bold absolute top-4 left-4">32</span>
           </div>
-
           <div
             className="absolute flex items-center justify-center"
             style={{
@@ -840,7 +782,6 @@ const Hero = () => {
                 }}
               >
                 <img src="/checked.png" alt="Syform" className="w-full h-full object-cover" />
-
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   whileHover={{ opacity: 1, y: 0 }}
@@ -849,14 +790,12 @@ const Hero = () => {
                   <span className="text-xs font-medium tracking-wide">View Product</span>
                 </motion.div>
               </div>
-
               <div className="mt-3 pointer-events-none hidden sm:block">
                 <h3 className="text-[14px] font-bold text-black">Syform</h3>
                 <p className="text-[12px] text-black text-left mt-1">Set & Graphic Design</p>
               </div>
             </motion.div>
           </div>
-
           <div
             className="absolute flex items-end md:items-center justify-center pb-6 md:pb-0"
             style={{
@@ -898,7 +837,6 @@ const Hero = () => {
                 }}
               >
                 <img src="/checked.png" alt="Upcoming" className="w-full h-full object-cover" />
-
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   whileHover={{ opacity: 1, y: 0 }}
@@ -907,13 +845,11 @@ const Hero = () => {
                   <span className="text-xs font-medium tracking-wide">View Product</span>
                 </motion.div>
               </div>
-
               <div className="mt-3 pointer-events-none hidden sm:block">
                 <h3 className="text-[14px] font-bold text-black">Upcoming</h3>
               </div>
             </motion.div>
           </div>
-
           <div
             className="absolute flex items-end md:items-center justify-center pb-6 md:pb-0"
             style={{
@@ -955,7 +891,6 @@ const Hero = () => {
                 }}
               >
                 <img src="/fablab.jpg" alt="The Social Fablab" className="w-full h-full object-cover" />
-
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   whileHover={{ opacity: 1, y: 0 }}
@@ -964,14 +899,12 @@ const Hero = () => {
                   <span className="text-xs font-medium tracking-wide">View Product</span>
                 </motion.div>
               </div>
-
               <div className="mt-3 pointer-events-none hidden sm:block">
                 <h3 className="text-[14px] font-bold text-black">The Social Fablab</h3>
                 <p className="text-[12px] text-black text-left mt-1">Speculative & Brand Design</p>
               </div>
             </motion.div>
           </div>
-
           <div
             className="absolute flex items-end md:items-center justify-center pb-6 md:pb-0"
             style={{
@@ -1013,7 +946,6 @@ const Hero = () => {
                 }}
               >
                 <img src="/checked.png" alt="Diversa" className="w-full h-full object-cover" />
-
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   whileHover={{ opacity: 1, y: 0 }}
@@ -1022,14 +954,12 @@ const Hero = () => {
                   <span className="text-xs font-medium tracking-wide">View Product</span>
                 </motion.div>
               </div>
-
               <div className="mt-3 pointer-events-none hidden sm:block">
                 <h3 className="text-[14px] font-bold text-black">Diversa</h3>
                 <p className="text-[12px] text-black text-left mt-1">Strategy & Brand Design</p>
               </div>
             </motion.div>
           </div>
-
           <div
             className="absolute flex items-center justify-center"
             style={{
@@ -1043,7 +973,6 @@ const Hero = () => {
           >
             <span className="text-white text-4xl font-bold absolute top-4 left-4">12</span>
           </div>
-
           <div
             className="absolute flex items-center justify-center"
             style={{
@@ -1057,7 +986,6 @@ const Hero = () => {
           >
             <span className="text-white text-4xl font-bold absolute top-4 left-4">31</span>
           </div>
-
           <div
             className="absolute flex items-center justify-center"
             style={{
@@ -1071,7 +999,6 @@ const Hero = () => {
           >
             <span className="text-white text-4xl font-bold absolute top-4 left-4">24</span>
           </div>
-
           <div
             className="absolute flex items-center justify-center"
             style={{
@@ -1085,7 +1012,6 @@ const Hero = () => {
           >
             <span className="text-white text-4xl font-bold absolute top-4 left-4">25</span>
           </div>
-
           <div
             className="absolute flex items-center justify-center"
             style={{
@@ -1099,7 +1025,6 @@ const Hero = () => {
           >
             <span className="text-white text-4xl font-bold absolute top-4 left-4">26</span>
           </div>
-
           <div
             className="absolute flex items-center justify-center"
             style={{
@@ -1113,7 +1038,6 @@ const Hero = () => {
           >
             <span className="text-white text-4xl font-bold absolute top-4 left-4">27</span>
           </div>
-
           <div
             className="absolute flex items-center justify-center"
             style={{
@@ -1127,7 +1051,6 @@ const Hero = () => {
           >
             <span className="text-white text-4xl font-bold absolute top-4 left-4">28</span>
           </div>
-
           <div
             className="absolute flex items-center justify-center"
             style={{
@@ -1141,7 +1064,6 @@ const Hero = () => {
           >
             <span className="text-black text-4xl font-bold absolute top-4 left-4">29</span>
           </div>
-
           <div
             className="absolute flex items-center justify-center"
             style={{
@@ -1194,7 +1116,6 @@ const Hero = () => {
               </div>
             </motion.div>
           </div>
-
           <div
             className="absolute flex items-start md:items-center justify-end md:justify-start pr-6 md:pr-0 md:pl-6 md:pt-0"
             style={{
@@ -1212,9 +1133,7 @@ const Hero = () => {
           </div>
         </motion.div>
       </motion.div>
-
       <div className="absolute bottom-20 md:bottom-8 left-0 right-0 px-6 md:px-12 flex items-end justify-between pointer-events-none z-50">
-
         <div className="flex items-center justify-center gap-3 pointer-events-auto w-full md:w-auto">
           <motion.button
             ref={aboutButtonRef}
@@ -1226,27 +1145,22 @@ const Hero = () => {
             <span className="text-sm font-medium">About</span>
           </motion.button>
         </div>
-
         <div className="sm:flex hidden items-center gap-6 bg-white text-black rounded-[16px] px-6 py-3 shadow-lg pointer-events-auto">
           <div className="text-[15px] font-semibold">
             <div>Shaping sense through</div>
             <div>Brand and Product Design</div>
           </div>
-
           <div className="text-[15px] font-semibold">
             <div>hello@dorodavid.com</div>
             <div>+39 3456366497</div>
           </div>
-
           <div className="text-[15px] font-semibold">
             <div>San Zeno, 31100</div>
             <div>Treviso, Italia.</div>
           </div>
         </div>
       </div>
-
     </motion.section>
   );
 };
-
 export default Hero;
