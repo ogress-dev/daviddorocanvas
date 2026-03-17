@@ -293,7 +293,7 @@ const Hero = () => {
               zIndex: 100
             }}
           >
-            <span className="text-black text-4xl font-bold absolute top-4 left-4">34</span>
+            <span className="text-white text-4xl font-bold absolute top-4 left-4">34</span>
           </div>
 
           <div
